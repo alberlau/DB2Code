@@ -1,0 +1,31 @@
+package {{package}};
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
+
+/** {{rawTable.remarks}}
+    {{rawTable.tableCat}}.{{rawTable.tableSchem}}.{{rawTable.tableName}}
+*/
+@Table("{{rawTable.tableName}}")
+public class {{className}} {
+    {{#properties}}
+
+    /** {{rawColumn.remarks}}
+        {{rawColumn.columnName}} {{rawColumn.typeName}}({{rawColumn.columnSize}}) Nullable={{rawColumn.isNullable}}
+    */
+    @Column("{{rawColumn.columnName}}") {{#isId}}@Id{{/isId}}
+    private {{javaType}} {{propertyName}};
+    {{/properties}}
+    {{#properties}}
+
+    public {{javaType}} get{{methodName}}() {
+        return {{propertyName}};
+    }
+
+    public void set{{methodName}}({{javaType}} {{propertyName}}) {
+        this.{{propertyName}} = {{propertyName}};
+    }
+
+    {{/properties}}
+}

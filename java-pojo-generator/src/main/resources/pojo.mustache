@@ -1,0 +1,25 @@
+package {{package}};
+
+/** {{rawTable.remarks}}
+    {{rawTable.tableCat}}.{{rawTable.tableSchem}}.{{rawTable.tableName}}
+*/
+public class {{className}} {
+    {{#properties}}
+
+    /** {{rawColumn.remarks}}
+        {{rawColumn.columnName}} {{rawColumn.typeName}}({{rawColumn.columnSize}}) Nullable={{rawColumn.isNullable}}
+    */
+    private {{javaType}} {{propertyName}};
+    {{/properties}}
+    {{#properties}}
+
+    public {{javaType}} get{{methodName}}() {
+        return {{propertyName}};
+    }
+
+    public void set{{methodName}}({{javaType}} {{propertyName}}) {
+        this.{{propertyName}} = {{propertyName}};
+    }
+
+    {{/properties}}
+}

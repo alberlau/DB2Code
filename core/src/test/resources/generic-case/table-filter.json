@@ -1,0 +1,129 @@
+{
+  "tables": [
+    {
+      "tableCat": "TEST",
+      "tableSchem": "TEST_SCHEMA",
+      "tableName": "TEST_TABLE_1",
+      "tableType": "BASE TABLE",
+      "remarks": "test_table_1 description",
+      "columns": [
+        {
+          "tableCat": "TEST",
+          "tableSchem": "TEST_SCHEMA",
+          "tableName": "TEST_TABLE_1",
+          "columnName": "SIMPLE_ID_1",
+          "dataType": 4,
+          "typeName": "INTEGER",
+          "columnSize": 32,
+          "decimalDigits": 0,
+          "numPrecRadix": 2,
+          "nullable": 0,
+          "charOctetLength": 32,
+          "ordinalPosition": 1,
+          "isNullable": "NO"
+        },
+        {
+          "tableCat": "TEST",
+          "tableSchem": "TEST_SCHEMA",
+          "tableName": "TEST_TABLE_1",
+          "columnName": "TEST_VARCHAR",
+          "dataType": 12,
+          "typeName": "CHARACTER VARYING",
+          "columnSize": 50,
+          "decimalDigits": 0,
+          "nullable": 0,
+          "charOctetLength": 50,
+          "ordinalPosition": 2,
+          "isNullable": "NO"
+        },
+        {
+          "tableCat": "TEST",
+          "tableSchem": "TEST_SCHEMA",
+          "tableName": "TEST_TABLE_1",
+          "columnName": "TEST_NUMERIC",
+          "dataType": 2,
+          "typeName": "NUMERIC",
+          "columnSize": 10,
+          "decimalDigits": 2,
+          "numPrecRadix": 10,
+          "nullable": 0,
+          "charOctetLength": 10,
+          "ordinalPosition": 3,
+          "isNullable": "NO"
+        },
+        {
+          "tableCat": "TEST",
+          "tableSchem": "TEST_SCHEMA",
+          "tableName": "TEST_TABLE_1",
+          "columnName": "TEST_DATE",
+          "dataType": 91,
+          "typeName": "DATE",
+          "columnSize": 10,
+          "decimalDigits": 0,
+          "nullable": 0,
+          "charOctetLength": 10,
+          "ordinalPosition": 4,
+          "isNullable": "NO"
+        },
+        {
+          "tableCat": "TEST",
+          "tableSchem": "TEST_SCHEMA",
+          "tableName": "TEST_TABLE_1",
+          "columnName": "TEST_DATETIME",
+          "dataType": 93,
+          "typeName": "TIMESTAMP",
+          "columnSize": 26,
+          "decimalDigits": 6,
+          "nullable": 0,
+          "charOctetLength": 26,
+          "ordinalPosition": 5,
+          "isNullable": "NO"
+        }
+      ],
+      "primaryKey": [
+        {
+          "tableCat": "TEST",
+          "tableSchem": "TEST_SCHEMA",
+          "tableName": "TEST_TABLE_1",
+          "columnName": "SIMPLE_ID_1",
+          "keySeq": "1",
+          "pkName": "CONSTRAINT_D"
+        }
+      ],
+      "foreignKeys": [
+        {
+          "pktableCat": "TEST",
+          "pktableSchem": "TEST_SCHEMA",
+          "pktableName": "TEST_TABLE_1",
+          "pkcolumnName": "SIMPLE_ID_1",
+          "fktableCat": "TEST",
+          "fktableSchem": "TEST_SCHEMA",
+          "fktableName": "TEST_TABLE_2",
+          "fkcolumnName": "SIMPLE_ID_2",
+          "keySeq": 1,
+          "updateRule": 1,
+          "deleteRule": 1,
+          "fkName": "CONSTRAINT_DCF",
+          "pkName": "CONSTRAINT_D",
+          "deferrability": 7
+        },
+        {
+          "pktableCat": "TEST",
+          "pktableSchem": "TEST_SCHEMA",
+          "pktableName": "TEST_TABLE_1",
+          "pkcolumnName": "SIMPLE_ID_1",
+          "fktableCat": "TEST",
+          "fktableSchem": "TEST_SCHEMA",
+          "fktableName": "TEST_TABLE_3",
+          "fkcolumnName": "SIMPLE_ID_1",
+          "keySeq": 1,
+          "updateRule": 1,
+          "deleteRule": 1,
+          "fkName": "CONSTRAINT_DCFE",
+          "pkName": "CONSTRAINT_D",
+          "deferrability": 7
+        }
+      ]
+    }
+  ]
+}
