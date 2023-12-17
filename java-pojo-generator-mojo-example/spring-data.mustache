@@ -14,6 +14,8 @@ public class {{className}} {
     /** {{rawColumn.remarks}}
         {{rawColumn.columnName}} {{rawColumn.typeName}}({{rawColumn.columnSize}}) Nullable={{rawColumn.isNullable}}
     */
+    {{^isNullable}}@jakarta.validation.constraints.NotNull{{/isNullable}}{{#isNullable}}
+    {{/isNullable}}{{#size}}@jakarta.validation.constraints.Size(max = {{size}}){{/size}}
     @Column("{{rawColumn.columnName}}") {{#isId}}@Id{{/isId}}
     private {{javaType}} {{propertyName}};
     {{/properties}}
