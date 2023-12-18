@@ -13,10 +13,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.relational.core.conversion.DbActionExecutionException;
 import spring.testpkg.TestTable1;
 
-@SpringBootTest(classes = App.class)
+@SpringBootTest(classes = {App.class})
 public class TestTable1RepositoryTest {
 
-    @Autowired private TestTable1Repository repository;
+    private final TestTable1Repository repository;
+
+    public TestTable1RepositoryTest(@Autowired TestTable1Repository repository) {
+        this.repository = repository;
+    }
 
     @Test
     public void testSaveAndFind() {
@@ -31,6 +35,7 @@ public class TestTable1RepositoryTest {
 
         assertThat(savedEntity).isNotNull();
         assertThat(savedEntity.getSimpleId1()).isNotNull();
+
         assertThat(savedEntity.getTestVarchar()).isEqualTo(entity.getTestVarchar());
 
         TestTable1 foundEntity = repository.findById(savedEntity.getSimpleId1()).orElse(null);
