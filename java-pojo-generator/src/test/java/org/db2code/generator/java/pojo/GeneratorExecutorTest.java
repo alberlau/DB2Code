@@ -68,7 +68,8 @@ class GeneratorExecutorTest {
                         Arrays.asList("pojo.mustache"),
                         TESTPKG,
                         TARGET_FOLDER,
-                        dir));
+                        dir,
+                        null));
 
         Arrays.stream(
                         Objects.requireNonNull(

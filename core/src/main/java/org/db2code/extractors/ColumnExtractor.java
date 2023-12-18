@@ -21,22 +21,23 @@ public class ColumnExtractor extends AbstractExtractor {
     private List<RawColumn> _extract(DatabaseMetaData databaseMetaData, ExtractionParameters params)
             throws SQLException {
         List<RawColumn> results = new ArrayList<>();
-        ResultSet columns =
+        try (ResultSet columns =
                 databaseMetaData.getColumns(
                         params.getCatalog(),
                         params.getSchemaPattern(),
                         params.getTableNamePattern(),
-                        null);
-        while (columns.next()) {
-            RawColumn rawColumn = new RawColumn();
-            for (ColumnMetadata mdItem : ColumnMetadata.values()) {
-                Object mdValue = columns.getObject(mdItem.name());
-                String propName =
-                        JavaPropertyConverter.camelCaseFromSnakeCaseInitLow(mdItem.name());
-                setProperty(rawColumn, mdValue, propName);
+                        null)) {
+            while (columns.next()) {
+                RawColumn rawColumn = new RawColumn();
+                for (ColumnMetadata mdItem : ColumnMetadata.values()) {
+                    Object mdValue = columns.getObject(mdItem.name());
+                    String propName =
+                            JavaPropertyConverter.camelCaseFromSnakeCaseInitLow(mdItem.name());
+                    setProperty(rawColumn, mdValue, propName);
+                }
+                results.add(rawColumn);
             }
-            results.add(rawColumn);
+            return results;
         }
-        return results;
     }
 }

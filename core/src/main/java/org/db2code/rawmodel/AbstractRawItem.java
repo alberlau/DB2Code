@@ -7,4 +7,5 @@ public class AbstractRawItem {
     private String tableCat;
     private String tableSchem;
     private String tableName;
+    private Boolean isLast;
 }

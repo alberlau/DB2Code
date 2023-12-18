@@ -24,64 +24,79 @@ public class TableExtractor extends AbstractExtractor {
     private List<RawTable> _extract(DatabaseMetaData databaseMetaData, ExtractionParameters params)
             throws SQLException {
         List<RawTable> results = new ArrayList<>();
-        ResultSet tables =
+        try (ResultSet tables =
                 databaseMetaData.getTables(
                         params.getCatalog(),
                         params.getSchemaPattern(),
                         params.getTableNamePattern(),
-                        params.getTypes());
-        while (tables.next()) {
-            RawTable rawTable = new RawTable();
-            for (TableMetadata mdItem : TableMetadata.values()) {
-                String mdValue = tables.getString(mdItem.name());
-                String propName =
-                        JavaPropertyConverter.camelCaseFromSnakeCaseInitLow(mdItem.name());
-                setProperty(rawTable, mdValue, propName);
+                        params.getTypes())) {
+            while (tables.next()) {
+                RawTable rawTable = new RawTable();
+                for (TableMetadata mdItem : TableMetadata.values()) {
+                    String mdValue = tables.getString(mdItem.name());
+                    String propName =
+                            JavaPropertyConverter.camelCaseFromSnakeCaseInitLow(mdItem.name());
+                    setProperty(rawTable, mdValue, propName);
+                }
+
+                rawTable.setPrimaryKey(extractPrimaryKeys(databaseMetaData, rawTable));
+                rawTable.setForeignKeys(extractForeignKeys(databaseMetaData, rawTable));
+
+                results.add(rawTable);
             }
-
-            rawTable.setPrimaryKey(extractPrimaryKeys(databaseMetaData, rawTable));
-            rawTable.setForeignKeys(extractForeignKeys(databaseMetaData, rawTable));
-
-            results.add(rawTable);
+            return results;
         }
-        return results;
     }
 
     private List<RawForeignKey> extractForeignKeys(
             DatabaseMetaData databaseMetaData, RawTable rawTable) throws SQLException {
         List<RawForeignKey> fkResults = new ArrayList<>();
-        ResultSet exportedKeys =
+        try (ResultSet exportedKeys =
                 databaseMetaData.getExportedKeys(
-                        rawTable.getTableCat(), rawTable.getTableSchem(), rawTable.getTableName());
-        while (exportedKeys.next()) {
-            RawForeignKey rawPrimaryKey = new RawForeignKey();
-            for (ExportedKeyMetadata mdItem : ExportedKeyMetadata.values()) {
-                Object mdValue = exportedKeys.getObject(mdItem.name());
-                String propName =
-                        JavaPropertyConverter.camelCaseFromSnakeCaseInitLow(mdItem.name());
-                setProperty(rawPrimaryKey, mdValue, propName);
+                        rawTable.getTableCat(),
+                        rawTable.getTableSchem(),
+                        rawTable.getTableName())) {
+            RawForeignKey rawForeignKey = null;
+            while (exportedKeys.next()) {
+                rawForeignKey = new RawForeignKey();
+                for (ExportedKeyMetadata mdItem : ExportedKeyMetadata.values()) {
+                    Object mdValue = exportedKeys.getObject(mdItem.name());
+                    String propName =
+                            JavaPropertyConverter.camelCaseFromSnakeCaseInitLow(mdItem.name());
+                    setProperty(rawForeignKey, mdValue, propName);
+                }
+                fkResults.add(rawForeignKey);
             }
-            fkResults.add(rawPrimaryKey);
+
+            if (rawForeignKey != null) {
+                rawForeignKey.setIsLast(true);
+            }
+            return fkResults;
         }
-        return fkResults;
     }
 
     private List<RawTable.RawPrimaryKey> extractPrimaryKeys(
             DatabaseMetaData databaseMetaData, RawTable table) throws SQLException {
         List<RawTable.RawPrimaryKey> results = new ArrayList<>();
-        ResultSet primaryKeys =
+        try (ResultSet primaryKeys =
                 databaseMetaData.getPrimaryKeys(
-                        table.getTableCat(), table.getTableSchem(), table.getTableName());
-        while (primaryKeys.next()) {
-            RawTable.RawPrimaryKey rawPrimaryKey = new RawTable.RawPrimaryKey();
-            for (PrimaryKeyMetadata mdItem : PrimaryKeyMetadata.values()) {
-                String mdValue = primaryKeys.getString(mdItem.name());
-                String propName =
-                        JavaPropertyConverter.camelCaseFromSnakeCaseInitLow(mdItem.name());
-                setProperty(rawPrimaryKey, mdValue, propName);
+                        table.getTableCat(), table.getTableSchem(), table.getTableName())) {
+            RawTable.RawPrimaryKey rawPrimaryKey = null;
+            while (primaryKeys.next()) {
+                rawPrimaryKey = new RawTable.RawPrimaryKey();
+                for (PrimaryKeyMetadata mdItem : PrimaryKeyMetadata.values()) {
+                    String mdValue = primaryKeys.getString(mdItem.name());
+                    String propName =
+                            JavaPropertyConverter.camelCaseFromSnakeCaseInitLow(mdItem.name());
+                    setProperty(rawPrimaryKey, mdValue, propName);
+                }
+                results.add(rawPrimaryKey);
             }
-            results.add(rawPrimaryKey);
+
+            if (rawPrimaryKey != null) {
+                rawPrimaryKey.setIsLast(true);
+            }
+            return results;
         }
-        return results;
     }
 }

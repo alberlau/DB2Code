@@ -18,4 +18,5 @@ public class RawForeignKey {
     private String fkName;
     private String pkName;
     private Integer deferrability;
+    private Boolean isLast;
 }

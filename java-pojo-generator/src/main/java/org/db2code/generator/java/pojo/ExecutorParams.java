@@ -9,18 +9,21 @@ public class ExecutorParams {
     private final String targetPackage;
     private final String targetFolder;
     private final String baseDir;
+    private final String ext;
 
     public ExecutorParams(
             Collection<ExtractionParameters> extractionParameters,
             Collection<String> templates,
             String targetPackage,
             String targetFolder,
-            String baseDir) {
+            String baseDir,
+            String ext) {
         this.extractionParameters = extractionParameters;
         this.templates = templates;
         this.targetPackage = targetPackage;
         this.targetFolder = targetFolder;
         this.baseDir = baseDir;
+        this.ext = ext;
     }
 
     public Collection<ExtractionParameters> getExtractionParameters() {
@@ -41,5 +44,9 @@ public class ExecutorParams {
 
     public Collection<String> getTemplates() {
         return templates;
+    }
+
+    public String getExt() {
+        return ext;
     }
 }

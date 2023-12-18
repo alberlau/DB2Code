@@ -36,6 +36,8 @@ public class PojoMojo extends AbstractMojo {
 
     @Parameter private String baseDir;
 
+    @Parameter private String ext;
+
     public void execute() throws MojoExecutionException, MojoFailureException {
         if (isWindows()) {
             jdbcUrl = jdbcUrl.replace("\\", "\\\\");
@@ -55,15 +57,14 @@ public class PojoMojo extends AbstractMojo {
             genTemplates = Collections.singletonList("pojo.mustache");
         }
 
-        System.out.println(
-                "------------- Generating to: " + baseDir + targetFolder + targetPackage);
         generatorExecutor.execute(
                 new ExecutorParams(
                         this.extractionParameters,
                         genTemplates,
                         this.targetPackage,
                         this.targetFolder,
-                        this.baseDir));
+                        this.baseDir,
+                        ext));
     }
 
     public static boolean isWindows() {

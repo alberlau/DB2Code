@@ -8,7 +8,6 @@ public enum ColumnMetadata {
     DATA_TYPE,
     TYPE_NAME,
     COLUMN_SIZE,
-    BUFFER_LENGTH,
     DECIMAL_DIGITS,
     NUM_PREC_RADIX,
     NULLABLE,
