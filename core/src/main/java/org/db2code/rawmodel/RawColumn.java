@@ -8,7 +8,6 @@ public class RawColumn extends AbstractRawItem {
     private int dataType;
     private String typeName;
     private int columnSize;
-    private Integer bufferLength;
     private int decimalDigits;
     private Integer numPrecRadix;
     private int nullable;

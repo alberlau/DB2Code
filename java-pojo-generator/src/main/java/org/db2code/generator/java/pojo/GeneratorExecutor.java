@@ -1,6 +1,7 @@
 package org.db2code.generator.java.pojo;
 
 import org.db2code.MetadataExtractor;
+import org.db2code.generator.java.pojo.adapter.JavaClassAdapter;
 import org.db2code.generator.java.pojo.adapter.JavaDatabaseAdapter;
 import org.db2code.rawmodel.RawDatabaseMetadata;
 
@@ -26,25 +27,26 @@ public class GeneratorExecutor {
                             new JavaDatabaseAdapter(metadata, params.getTargetPackage())
                                     .getClasses()
                                     .forEach(
-                                            javaClass -> {
-                                                params.getTemplates()
-                                                        .forEach(
-                                                                template -> {
-                                                                    String source =
-                                                                            generator.generate(
+                                            javaClass ->
+                                                    params.getTemplates()
+                                                            .forEach(
+                                                                    template ->
+                                                                            generateSource(
+                                                                                    params,
                                                                                     javaClass,
-                                                                                    template);
-                                                                    classWriter.write(
-                                                                            params.getBaseDir(),
-                                                                            params
-                                                                                    .getTargetFolder(),
-                                                                            params
-                                                                                    .getTargetPackage(),
-                                                                            javaClass
-                                                                                    .getClassName(),
-                                                                            source);
-                                                                });
-                                            });
+                                                                                    template)));
                         });
+    }
+
+    private void generateSource(
+            ExecutorParams params, JavaClassAdapter javaClass, String template) {
+        String source = generator.generate(javaClass, template);
+        classWriter.write(
+                params.getBaseDir(),
+                params.getTargetFolder(),
+                params.getTargetPackage(),
+                javaClass.getClassName(),
+                source,
+                params.getExt());
     }
 }

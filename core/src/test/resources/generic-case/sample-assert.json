@@ -69,6 +69,7 @@
           "tableCat": "TEST",
           "tableSchem": "TEST_SCHEMA",
           "tableName": "TEST_TABLE_1",
+          "isLast": true,
           "columnName": "TEST_DATETIME",
           "dataType": 93,
           "typeName": "TIMESTAMP",
@@ -85,6 +86,7 @@
           "tableCat": "TEST",
           "tableSchem": "TEST_SCHEMA",
           "tableName": "TEST_TABLE_1",
+          "isLast": true,
           "columnName": "SIMPLE_ID_1",
           "keySeq": "1",
           "pkName": "CONSTRAINT_D"
@@ -121,7 +123,8 @@
           "deleteRule": 1,
           "fkName": "CONSTRAINT_DCFE",
           "pkName": "CONSTRAINT_D",
-          "deferrability": 7
+          "deferrability": 7,
+          "isLast": true
         }
       ]
     },
@@ -194,6 +197,7 @@
           "tableCat": "TEST",
           "tableSchem": "TEST_SCHEMA",
           "tableName": "TEST_TABLE_2",
+          "isLast": true,
           "columnName": "TEST_DATETIME",
           "dataType": 93,
           "typeName": "TIMESTAMP",
@@ -210,6 +214,7 @@
           "tableCat": "TEST",
           "tableSchem": "TEST_SCHEMA",
           "tableName": "TEST_TABLE_2",
+          "isLast": true,
           "columnName": "SIMPLE_ID_2",
           "keySeq": "1",
           "pkName": "CONSTRAINT_DC"
@@ -230,7 +235,8 @@
           "deleteRule": 1,
           "fkName": "CONSTRAINT_DCFE4",
           "pkName": "CONSTRAINT_DC",
-          "deferrability": 7
+          "deferrability": 7,
+          "isLast": true
         }
       ]
     },
@@ -259,6 +265,7 @@
           "tableCat": "TEST",
           "tableSchem": "TEST_SCHEMA",
           "tableName": "TEST_TABLE_3",
+          "isLast": true,
           "columnName": "SIMPLE_ID_2",
           "dataType": 4,
           "typeName": "INTEGER",

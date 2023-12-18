@@ -46,6 +46,20 @@ public class JavaPropertyAdapter {
         return primaryKeyColumns.contains(rawColumn.getColumnName());
     }
 
+    public Boolean getIsNullable() {
+        return "YES".equals(rawColumn.getIsNullable())
+                ? Boolean.TRUE
+                : "NO".equals(rawColumn.getIsNullable()) ? Boolean.FALSE : null;
+    }
+
+    public Integer getSize() {
+        if (getJavaType() == JAVA_STRING) {
+            return rawColumn.getColumnSize();
+        } else {
+            return null;
+        }
+    }
+
     public String getJavaType() {
         switch (rawColumn.getDataType()) {
             case -6:

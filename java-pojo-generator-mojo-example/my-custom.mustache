@@ -1,0 +1,59 @@
+{
+    "description": "You probably can implement better serialization for RawTable. This is just demo on how to handle RawTable with mustache.",
+    "catalog": "{{rawTable.tableCat}}",
+    "schema": "{{rawTable.tableSchem}}",
+    "table": "{{rawTable.tableName}}",
+    "typeName": "{{rawTable.typeName}}",
+    "selfReferencingColName": "{{rawTable.selfReferencingColName}}",
+    "refGeneration": "{{rawTable.refGeneration}}",
+    "remarks": "{{rawTable.remarks}}",
+    "columns": [
+    {{#rawTable.columns}}
+        {
+            "name": "{{columnName}}",
+            "dataType": {{dataType}},
+            "typeName": "{{typeName}}",
+            "columnSize": {{columnSize}},
+{{#decimalDigits}}            "decimalDigits": {{decimalDigits}},{{/decimalDigits}}
+{{#numPrecRadix}}            "numPrecRadix": {{numPrecRadix}},{{/numPrecRadix}}
+            "nullable": {{nullable}},
+            "remarks": "{{remarks}}",
+            "columnDef": "{{columnDef}}",
+            "sqlDataType": "{{sqlDataType}}",
+            "sqlDatetimeSub": "{{sqlDatetimeSub}}",
+            "charOctetLength": {{charOctetLength}},
+            "ordinalPosition": {{ordinalPosition}},
+            "isNullable": "{{isNullable}}"
+        }{{^isLast}},{{/isLast}}
+    {{/rawTable.columns}}
+    ],
+    "primaryKey": [
+    {{#rawTable.primaryKey}}
+        {
+            "keySeq": {{keySeq}},
+            "columnName": "{{columnName}}",
+            "pkName": "{{pkName}}"
+        }{{^isLast}},{{/isLast}}
+    {{/rawTable.primaryKey}}
+    ],
+    "foreignKeys": [
+    {{#rawTable.foreignKeys}}
+        {
+            "pktableCat": "{{pktableCat}}",
+            "pktableSchem": "{{pktableSchem}}",
+            "pktableName": "{{pktableName}}",
+            "pkcolumnName": "{{pkcolumnName}}",
+            "fktableCat": "{{fktableCat}}",
+            "fktableSchem": "{{fktableSchem}}",
+            "fktableName": "{{fktableName}}",
+            "fkcolumnName": "{{fkcolumnName}}",
+            "keySeq": {{keySeq}},
+            "updateRule": {{updateRule}},
+            "deleteRule": {{deleteRule}},
+            "fkName": "{{fkName}}",
+            "pkName": "{{pkName}}",
+            "deferrability": {{deferrability}}
+        }{{^isLast}},{{/isLast}}
+    {{/rawTable.foreignKeys}}
+    ]
+}
