@@ -78,7 +78,7 @@ Optionally if you need to attach generated code to your source code add this:
 You can customize generation template, by providing __templates__ list.
 To filter out objects included into metadata, you can specify:
 - __catalog__
-- __schemaPatter__
+- __schemaPattern__
 - __tableNamePattern__
 - __types__ - one of TABLE, VIEW, SYSTEM_TABLE, GLOBAL_TEMPORARY, LOCAL_TEMPORARY, ALIAS, SYNONYM
 see DatabaseMetadata.getTables and database in use documentation for more info
