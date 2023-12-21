@@ -30,7 +30,11 @@ public class GeneratorExecutor {
                                 dateImpl = DateImpl.UTIL_DATE;
                             }
 
-                            new JavaDatabaseAdapter(metadata, params.getTargetPackage(), dateImpl)
+                            new JavaDatabaseAdapter(
+                                            metadata,
+                                            params.getTargetPackage(),
+                                            dateImpl,
+                                            params.isIncludeGenerationInfo())
                                     .getClasses()
                                     .forEach(
                                             javaClass ->

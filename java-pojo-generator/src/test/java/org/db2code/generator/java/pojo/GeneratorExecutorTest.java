@@ -71,7 +71,8 @@ class GeneratorExecutorTest {
                         TARGET_FOLDER,
                         dir,
                         null,
-                        DateImpl.UTIL_DATE));
+                        DateImpl.UTIL_DATE,
+                        false));
 
         Arrays.stream(
                         Objects.requireNonNull(

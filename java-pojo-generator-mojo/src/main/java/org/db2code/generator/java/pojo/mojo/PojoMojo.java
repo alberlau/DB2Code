@@ -38,6 +38,7 @@ public class PojoMojo extends AbstractMojo {
     @Parameter private String ext;
 
     @Parameter private DateImpl dateImpl;
+    @Parameter private boolean includeGenerationInfo;
 
     public void execute() {
         if (isWindows()) {
@@ -66,7 +67,8 @@ public class PojoMojo extends AbstractMojo {
                         this.targetFolder,
                         this.baseDir,
                         ext,
-                        dateImpl));
+                        dateImpl,
+                        includeGenerationInfo));
     }
 
     public static boolean isWindows() {

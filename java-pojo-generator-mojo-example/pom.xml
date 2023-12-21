@@ -70,6 +70,7 @@
                             <goal>generatePojo</goal>
                         </goals>
                         <configuration>
+                            <includeGenerationInfo>true</includeGenerationInfo>
                             <jdbcUrl>jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;INIT=RUNSCRIPT FROM '${project.basedir}/init.sql'</jdbcUrl>
                             <jdbcClassName>org.h2.Driver</jdbcClassName>
                             <extractionParameters>

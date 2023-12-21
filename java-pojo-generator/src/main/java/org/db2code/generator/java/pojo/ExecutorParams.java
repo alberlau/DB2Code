@@ -12,6 +12,7 @@ public class ExecutorParams {
     private final String baseDir;
     private final String ext;
     private final DateImpl dateImpl;
+    private final boolean includeGenerationInfo;
 
     public ExecutorParams(
             Collection<ExtractionParameters> extractionParameters,
@@ -20,7 +21,8 @@ public class ExecutorParams {
             String targetFolder,
             String baseDir,
             String ext,
-            DateImpl dateImpl) {
+            DateImpl dateImpl,
+            boolean includeGenerationInfo) {
         this.extractionParameters = extractionParameters;
         this.templates = templates;
         this.targetPackage = targetPackage;
@@ -28,6 +30,7 @@ public class ExecutorParams {
         this.baseDir = baseDir;
         this.ext = ext;
         this.dateImpl = dateImpl;
+        this.includeGenerationInfo = includeGenerationInfo;
     }
 
     public Collection<ExtractionParameters> getExtractionParameters() {
@@ -56,5 +59,9 @@ public class ExecutorParams {
 
     public DateImpl getDateImpl() {
         return dateImpl;
+    }
+
+    public boolean isIncludeGenerationInfo() {
+        return includeGenerationInfo;
     }
 }
