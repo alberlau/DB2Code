@@ -5,8 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,10 +25,8 @@ public class TestTable1RepositoryTest {
         TestTable1 entity = new TestTable1();
         entity.setTestVarchar("Test Name");
         entity.setTestNumeric(BigDecimal.ONE);
-        entity.setTestDate(
-                Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-        entity.setTestDatetime(
-                Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        entity.setTestDate(LocalDate.now());
+        entity.setTestDatetime(LocalDate.now().atStartOfDay());
         TestTable1 savedEntity = repository.save(entity);
 
         assertThat(savedEntity).isNotNull();

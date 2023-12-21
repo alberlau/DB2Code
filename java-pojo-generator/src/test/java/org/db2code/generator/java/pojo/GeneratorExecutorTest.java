@@ -16,6 +16,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.db2code.MetadataExtractor;
 import org.db2code.extractors.ExtractionParameters;
+import org.db2code.generator.java.pojo.adapter.DateImpl;
 import org.db2code.rawmodel.RawDatabaseMetadata;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -69,7 +70,8 @@ class GeneratorExecutorTest {
                         TESTPKG,
                         TARGET_FOLDER,
                         dir,
-                        null));
+                        null,
+                        DateImpl.UTIL_DATE));
 
         Arrays.stream(
                         Objects.requireNonNull(

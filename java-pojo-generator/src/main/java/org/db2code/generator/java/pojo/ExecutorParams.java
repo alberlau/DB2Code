@@ -2,6 +2,7 @@ package org.db2code.generator.java.pojo;
 
 import java.util.Collection;
 import org.db2code.extractors.ExtractionParameters;
+import org.db2code.generator.java.pojo.adapter.DateImpl;
 
 public class ExecutorParams {
     private final Collection<ExtractionParameters> extractionParameters;
@@ -10,6 +11,7 @@ public class ExecutorParams {
     private final String targetFolder;
     private final String baseDir;
     private final String ext;
+    private final DateImpl dateImpl;
 
     public ExecutorParams(
             Collection<ExtractionParameters> extractionParameters,
@@ -17,13 +19,15 @@ public class ExecutorParams {
             String targetPackage,
             String targetFolder,
             String baseDir,
-            String ext) {
+            String ext,
+            DateImpl dateImpl) {
         this.extractionParameters = extractionParameters;
         this.templates = templates;
         this.targetPackage = targetPackage;
         this.targetFolder = targetFolder;
         this.baseDir = baseDir;
         this.ext = ext;
+        this.dateImpl = dateImpl;
     }
 
     public Collection<ExtractionParameters> getExtractionParameters() {
@@ -48,5 +52,9 @@ public class ExecutorParams {
 
     public String getExt() {
         return ext;
+    }
+
+    public DateImpl getDateImpl() {
+        return dateImpl;
     }
 }

@@ -1,6 +1,7 @@
 package org.db2code.generator.java.pojo;
 
 import org.db2code.MetadataExtractor;
+import org.db2code.generator.java.pojo.adapter.DateImpl;
 import org.db2code.generator.java.pojo.adapter.JavaClassAdapter;
 import org.db2code.generator.java.pojo.adapter.JavaDatabaseAdapter;
 import org.db2code.rawmodel.RawDatabaseMetadata;
@@ -24,7 +25,12 @@ public class GeneratorExecutor {
                         param -> {
                             RawDatabaseMetadata metadata = metadataExtractor.extract(param);
 
-                            new JavaDatabaseAdapter(metadata, params.getTargetPackage())
+                            DateImpl dateImpl = params.getDateImpl();
+                            if (dateImpl == null) {
+                                dateImpl = DateImpl.UTIL_DATE;
+                            }
+
+                            new JavaDatabaseAdapter(metadata, params.getTargetPackage(), dateImpl)
                                     .getClasses()
                                     .forEach(
                                             javaClass ->

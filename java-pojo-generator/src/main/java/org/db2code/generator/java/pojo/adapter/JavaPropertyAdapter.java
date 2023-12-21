@@ -1,5 +1,6 @@
 package org.db2code.generator.java.pojo.adapter;
 
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.db2code.convert.JavaPropertyConverter;
@@ -14,16 +15,20 @@ public class JavaPropertyAdapter {
     private final String JAVA_CHAR = "Char";
     private final String JAVA_STRING = "String";
     private final String JAVA_DATE = "java.util.Date";
+    private final String JAVA_LOCAL_DATE = "java.time.LocalDate";
+    private final String JAVA_LOCAL_DATE_TIME = "java.time.LocalDateTime";
     private final String JAVA_BYTE_ARRAY = "byte[]";
     private final String JAVA_CHAR_ARRAY = "char[]";
     private final String JAVA_OBJECT = "Object";
     private final String JAVA_BOOLEAN = "Boolean";
     private final RawTable rawTable;
     private final Set<String> primaryKeyColumns;
+    private final DateImpl dateImpl;
 
-    public JavaPropertyAdapter(RawTable rawTable, RawColumn rawColumn) {
+    public JavaPropertyAdapter(RawTable rawTable, RawColumn rawColumn, DateImpl dateImpl) {
         this.rawTable = rawTable;
         this.rawColumn = rawColumn;
+        this.dateImpl = dateImpl;
         this.primaryKeyColumns =
                 rawTable.getPrimaryKey().stream()
                         .map(RawTable.RawPrimaryKey::getColumnName)
@@ -53,7 +58,7 @@ public class JavaPropertyAdapter {
     }
 
     public Integer getSize() {
-        if (getJavaType() == JAVA_STRING) {
+        if (Objects.equals(getJavaType(), JAVA_STRING)) {
             return rawColumn.getColumnSize();
         } else {
             return null;
@@ -84,11 +89,12 @@ public class JavaPropertyAdapter {
             case -16:
                 return JAVA_STRING;
             case 91:
+                return resolveDateImpl();
             case 92:
             case 93:
             case 2013:
             case 2014:
-                return JAVA_DATE;
+                return resolveTimeImpl();
             case -2:
             case -3:
             case -4:
@@ -115,6 +121,22 @@ public class JavaPropertyAdapter {
                                 + rawColumn.getColumnName()
                                 + " in table: "
                                 + rawColumn.getTableName());
+        }
+    }
+
+    private String resolveDateImpl() {
+        if (dateImpl == DateImpl.UTIL_DATE) {
+            return JAVA_DATE;
+        } else {
+            return JAVA_LOCAL_DATE;
+        }
+    }
+
+    private String resolveTimeImpl() {
+        if (dateImpl == DateImpl.UTIL_DATE) {
+            return JAVA_DATE;
+        } else {
+            return JAVA_LOCAL_DATE_TIME;
         }
     }
 }

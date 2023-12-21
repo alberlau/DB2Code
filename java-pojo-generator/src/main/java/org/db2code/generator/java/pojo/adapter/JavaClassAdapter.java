@@ -8,10 +8,12 @@ import org.db2code.rawmodel.RawTable;
 public class JavaClassAdapter {
     private final RawTable rawTable;
     private final String targetPackage;
+    private final DateImpl dateImpl;
 
-    public JavaClassAdapter(RawTable rawTable, String targetPackage) {
+    public JavaClassAdapter(RawTable rawTable, String targetPackage, DateImpl dateImpl) {
         this.rawTable = rawTable;
         this.targetPackage = targetPackage;
+        this.dateImpl = dateImpl;
     }
 
     public String getClassName() {
@@ -28,7 +30,7 @@ public class JavaClassAdapter {
 
     public Collection<JavaPropertyAdapter> getProperties() {
         return rawTable.getColumns().stream()
-                .map(rawColumn -> new JavaPropertyAdapter(rawTable, rawColumn))
+                .map(rawColumn -> new JavaPropertyAdapter(rawTable, rawColumn, dateImpl))
                 .collect(Collectors.toList());
     }
 }
