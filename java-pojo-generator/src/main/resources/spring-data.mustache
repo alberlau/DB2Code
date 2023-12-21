@@ -5,7 +5,9 @@ import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 /** {{rawTable.remarks}}
-    {{rawTable.tableCat}}.{{rawTable.tableSchem}}.{{rawTable.tableName}}
+    {{rawTable.tableCat}}.{{rawTable.tableSchem}}.{{rawTable.tableName}}{{#generationInfo}}
+
+    {{generationInfo}}{{/generationInfo}}
 */
 @Table("{{rawTable.tableName}}")
 public class {{className}} {

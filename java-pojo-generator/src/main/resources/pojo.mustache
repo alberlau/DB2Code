@@ -1,7 +1,9 @@
 package {{package}};
 
 /** {{rawTable.remarks}}
-    {{rawTable.tableCat}}.{{rawTable.tableSchem}}.{{rawTable.tableName}}
+    {{rawTable.tableCat}}.{{rawTable.tableSchem}}.{{rawTable.tableName}}{{#generationInfo}}
+
+    {{generationInfo}}{{/generationInfo}}
 */
 public class {{className}} {
     {{#properties}}
