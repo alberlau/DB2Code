@@ -3,8 +3,6 @@ package org.db2code.generator.java.pojo.mojo;
 import java.util.Collections;
 import java.util.List;
 import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
@@ -15,6 +13,7 @@ import org.db2code.generator.java.pojo.ClassWriter;
 import org.db2code.generator.java.pojo.ExecutorParams;
 import org.db2code.generator.java.pojo.Generator;
 import org.db2code.generator.java.pojo.GeneratorExecutor;
+import org.db2code.generator.java.pojo.adapter.DateImpl;
 
 @Mojo(name = "generatePojo", defaultPhase = LifecyclePhase.GENERATE_SOURCES)
 public class PojoMojo extends AbstractMojo {
@@ -38,7 +37,9 @@ public class PojoMojo extends AbstractMojo {
 
     @Parameter private String ext;
 
-    public void execute() throws MojoExecutionException, MojoFailureException {
+    @Parameter private DateImpl dateImpl;
+
+    public void execute() {
         if (isWindows()) {
             jdbcUrl = jdbcUrl.replace("\\", "\\\\");
         }
@@ -64,7 +65,8 @@ public class PojoMojo extends AbstractMojo {
                         this.targetPackage,
                         this.targetFolder,
                         this.baseDir,
-                        ext));
+                        ext,
+                        dateImpl));
     }
 
     public static boolean isWindows() {

@@ -8,15 +8,18 @@ import org.db2code.rawmodel.RawTable;
 public class JavaDatabaseAdapter {
     private final RawDatabaseMetadata rawDatabaseMetadata;
     private final String targetPackage;
+    private final DateImpl dateImpl;
 
-    public JavaDatabaseAdapter(RawDatabaseMetadata rawDatabaseMetadata, String targetPackage) {
+    public JavaDatabaseAdapter(
+            RawDatabaseMetadata rawDatabaseMetadata, String targetPackage, DateImpl dateImpl) {
         this.rawDatabaseMetadata = rawDatabaseMetadata;
         this.targetPackage = targetPackage;
+        this.dateImpl = dateImpl;
     }
 
     public Collection<JavaClassAdapter> getClasses() {
         return rawDatabaseMetadata.getTables().stream()
-                .map((RawTable rawTable) -> new JavaClassAdapter(rawTable, targetPackage))
+                .map((RawTable rawTable) -> new JavaClassAdapter(rawTable, targetPackage, dateImpl))
                 .collect(Collectors.toList());
     }
 }
