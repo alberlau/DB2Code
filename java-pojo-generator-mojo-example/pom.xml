@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.db2code</groupId>
         <artifactId>DB2Code</artifactId>
-        <version>1.0</version>
+        <version>1.0.1</version>
     </parent>
 
     <artifactId>java-pojo-generator-mojo-example</artifactId>
@@ -62,7 +62,7 @@
             <plugin>
                 <groupId>org.db2code</groupId>
                 <artifactId>java-pojo-generator-mojo</artifactId>
-                <version>1.0</version>
+                <version>1.0.1</version>
                 <executions>
                     <execution>
                         <id>pojoExecution</id>
