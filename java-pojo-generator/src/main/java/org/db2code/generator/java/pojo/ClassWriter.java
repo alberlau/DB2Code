@@ -10,22 +10,19 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class ClassWriter {
-    public void write(
-            String baseDir,
-            String targetFolder,
-            String pkg,
-            String claz,
-            String source,
-            String ext) {
+    public void write(ExecutorParams params, String claz, String source) {
 
         FileWriter fw = null;
         try {
+            String pkg = params.getTargetPackage();
             if (pkg == null) {
                 pkg = "";
             }
+            String targetFolder = params.getTargetFolder();
             if (targetFolder == null) {
                 targetFolder = ".";
             }
+            String baseDir = params.getBaseDir();
             if (isBlank(baseDir)) {
                 throw new RuntimeException("baseDir is required");
             }
@@ -33,6 +30,7 @@ public class ClassWriter {
             if (!path.toFile().exists() && !path.toFile().mkdirs()) {
                 throw new RuntimeException("Dir cannot be created " + path);
             }
+            String ext = params.getExt();
             File classFile = new File(path.toFile(), claz + (ext == null ? ".java" : ext));
             if (classFile.exists()) {
                 classFile.delete();

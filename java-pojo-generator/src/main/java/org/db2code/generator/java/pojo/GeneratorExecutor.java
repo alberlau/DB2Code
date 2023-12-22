@@ -51,12 +51,6 @@ public class GeneratorExecutor {
     private void generateSource(
             ExecutorParams params, JavaClassAdapter javaClass, String template) {
         String source = generator.generate(javaClass, template);
-        classWriter.write(
-                params.getBaseDir(),
-                params.getTargetFolder(),
-                params.getTargetPackage(),
-                javaClass.getClassName(),
-                source,
-                params.getExt());
+        classWriter.write(params, javaClass.getClassName(), source);
     }
 }
