@@ -31,7 +31,7 @@ Modify your pom.xml as bellow and adjust necessary parameters:
                     </extractionParameters>
                     <baseDir>${project.basedir}</baseDir>
                     <targetFolder>target/generated-sources</targetFolder>
-                    <testPackage>testpkg</testPackage>
+                    <targetPackage>testpkg</targetPackage>
                 </configuration>
                 <executions>
                     <execution>
@@ -75,14 +75,27 @@ Optionally if you need to attach generated code to your source code add this:
             </plugin>
 ```
 
+Configuration params:
+- __jdbcUrl__
+- __jdbcClassName__
+- __jdbcUser__
+- __jdbcPassword__
+- __extractionParameters__ exactly as in DatabaseMetadata.getTables
+  - __schemaPattern__ supports %_, can be blank
+  - __catalog__ can be blank, mostly it's database
+  - __tableNamePattern__ supports %_, can be blank, selects all tables
+  - __types__ one of TABLE, VIEW, SYSTEM_TABLE, GLOBAL_TEMPORARY, LOCAL_TEMPORARY, ALIAS, SYNONYM, can be blank
+- __baseDir__ where to output generated source, can be ${project.baseDir}
+- __targetFolder__ where to put sources under baseDir, can be target/generated-sources
+- __targetPackage__ what package should be used for generated classes
+- __ext__ extension for generated files, defaults to .java
+- __dateImpl__ what java date implementation should be used: UTIL_DATE or LOCAL_DATE
+- __includeGenerationInfo__ should info about generation be included? Defaults to false
+
 You can customize generation template, by providing __templates__ list.
-To filter out objects included into metadata, you can specify:
-- __catalog__
-- __schemaPattern__
-- __tableNamePattern__
-- __types__ - one of TABLE, VIEW, SYSTEM_TABLE, GLOBAL_TEMPORARY, LOCAL_TEMPORARY, ALIAS, SYNONYM
-see DatabaseMetadata.getTables and database in use documentation for more info
+You can provide multiple executions with different id's to select from different schemas, providing different templates or some other config options.
 
 Check https://github.com/alberlau/DB2Code/tree/master/java-pojo-generator-mojo-example and see example usage.
 
-To see what is exposed into model, check: https://github.com/alberlau/DB2Code/tree/master/core/src/main/java/org/db2code/rawmodel
+To see what is exposed into model, check: https://github.com/alberlau/DB2Code/tree/master/core/src/main/java/org/db2code/rawmodel classes
+along with adapter class: https://github.com/alberlau/DB2Code/blob/master/java-pojo-generator/src/main/java/org/db2code/generator/java/pojo/adapter/JavaClassAdapter.java
