@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.db2code.convert.JavaPropertyConverter;
 import org.db2code.md.ExportedKeyMetadata;
 import org.db2code.md.PrimaryKeyMetadata;
@@ -12,6 +13,7 @@ import org.db2code.md.TableMetadata;
 import org.db2code.rawmodel.RawForeignKey;
 import org.db2code.rawmodel.RawTable;
 
+@Slf4j
 public class TableExtractor extends AbstractExtractor {
     public List<RawTable> extract(DatabaseMetaData databaseMetaData, ExtractionParameters params) {
         try {
@@ -33,7 +35,7 @@ public class TableExtractor extends AbstractExtractor {
             while (tables.next()) {
                 RawTable rawTable = new RawTable();
                 for (TableMetadata mdItem : TableMetadata.values()) {
-                    String mdValue = tables.getString(mdItem.name());
+                    String mdValue = tryGetFromMetadata(mdItem, tables);
                     String propName =
                             JavaPropertyConverter.camelCaseFromSnakeCaseInitLow(mdItem.name());
                     setProperty(rawTable, mdValue, propName);
@@ -46,6 +48,15 @@ public class TableExtractor extends AbstractExtractor {
             }
             return results;
         }
+    }
+
+    private static String tryGetFromMetadata(TableMetadata mdItem, ResultSet tables) {
+        try {
+            return tables.getString(mdItem.name());
+        } catch (SQLException e) {
+            log.error("Error while getting metadata: " + e.getMessage());
+        }
+        return null;
     }
 
     private List<RawForeignKey> extractForeignKeys(
