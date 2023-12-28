@@ -1,35 +1,18 @@
 package org.db2code.generator.java.pojo;
 
-import static org.apache.commons.lang3.StringUtils.isBlank;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class ClassWriter {
     public void write(ExecutorParams params, String claz, String source) {
 
         FileWriter fw = null;
         try {
-            String pkg = params.getTargetPackage();
-            if (pkg == null) {
-                pkg = "";
-            }
-            String targetFolder = params.getTargetFolder();
-            if (targetFolder == null) {
-                targetFolder = ".";
-            }
-            String baseDir = params.getBaseDir();
-            if (isBlank(baseDir)) {
-                throw new RuntimeException("baseDir is required");
-            }
-            Path path = Paths.get(baseDir, targetFolder, pkg.replaceAll("\\.", "/"));
-            if (!path.toFile().exists() && !path.toFile().mkdirs()) {
-                throw new RuntimeException("Dir cannot be created " + path);
-            }
+            GeneratorTarget generatorTarget = params.getGeneratorTarget();
+            Path path = generatorTarget.getPath();
             String ext = params.getExt();
             File classFile = new File(path.toFile(), claz + (ext == null ? ".java" : ext));
             if (classFile.exists()) {

@@ -14,8 +14,9 @@ import org.db2code.rawmodel.RawForeignKey;
 import org.db2code.rawmodel.RawTable;
 
 @Slf4j
-public class TableExtractor extends AbstractExtractor {
-    public List<RawTable> extract(DatabaseMetaData databaseMetaData, ExtractionParameters params) {
+public class TableExtractor extends AbstractExtractor<DatabaseExtractionParameters> {
+    public List<RawTable> extract(
+            DatabaseMetaData databaseMetaData, DatabaseExtractionParameters params) {
         try {
             return _extract(databaseMetaData, params);
         } catch (SQLException e) {
@@ -23,7 +24,8 @@ public class TableExtractor extends AbstractExtractor {
         }
     }
 
-    private List<RawTable> _extract(DatabaseMetaData databaseMetaData, ExtractionParameters params)
+    private List<RawTable> _extract(
+            DatabaseMetaData databaseMetaData, DatabaseExtractionParameters params)
             throws SQLException {
         List<RawTable> results = new ArrayList<>();
         try (ResultSet tables =

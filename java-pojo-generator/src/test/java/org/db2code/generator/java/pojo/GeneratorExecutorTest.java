@@ -15,7 +15,7 @@ import java.util.Objects;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.db2code.MetadataExtractor;
-import org.db2code.extractors.ExtractionParameters;
+import org.db2code.extractors.DatabaseExtractionParameters;
 import org.db2code.generator.java.pojo.adapter.DateImpl;
 import org.db2code.rawmodel.RawDatabaseMetadata;
 import org.junit.jupiter.api.AfterEach;
@@ -61,22 +61,21 @@ class GeneratorExecutorTest {
         generatorExecutor.execute(
                 new ExecutorParams(
                         Arrays.asList(
-                                new ExtractionParameters(
+                                new DatabaseExtractionParameters(
                                         "testcat",
                                         "testSchemaPattern",
                                         "testTablePattern",
-                                        new String[] {})),
+                                        new String[] {},
+                                        null)),
                         Arrays.asList("pojo.mustache"),
-                        TESTPKG,
-                        TARGET_FOLDER,
-                        dir,
+                        new GeneratorTarget(TESTPKG, TARGET_FOLDER, dir),
                         null,
                         DateImpl.UTIL_DATE,
                         false));
 
-        Arrays.stream(
-                        Objects.requireNonNull(
-                                Paths.get(dir, TARGET_FOLDER, TESTPKG).toFile().listFiles()))
+        File[] files = Paths.get(dir, TARGET_FOLDER, TESTPKG).toFile().listFiles();
+        Assertions.assertTrue(files.length > 0);
+        Arrays.stream(Objects.requireNonNull(files))
                 .forEach(
                         file -> {
                             try (FileInputStream fileInputStream = new FileInputStream(file)) {

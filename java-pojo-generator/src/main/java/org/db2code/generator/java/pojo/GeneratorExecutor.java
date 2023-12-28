@@ -1,6 +1,11 @@
 package org.db2code.generator.java.pojo;
 
+import static org.apache.commons.lang3.StringUtils.isEmpty;
+
 import org.db2code.MetadataExtractor;
+import org.db2code.extractors.DatabaseExtractionParameters;
+import org.db2code.extractors.ExtractionParameters;
+import org.db2code.extractors.MetadataFileExtractionParameters;
 import org.db2code.generator.java.pojo.adapter.DateImpl;
 import org.db2code.generator.java.pojo.adapter.JavaClassAdapter;
 import org.db2code.generator.java.pojo.adapter.JavaDatabaseAdapter;
@@ -11,6 +16,8 @@ public class GeneratorExecutor {
     private final MetadataExtractor metadataExtractor;
     private final ClassWriter classWriter;
     private final Generator generator;
+    private final SerializedMetadataProvider serializedMetadataProvider =
+            new SerializedMetadataProvider();
 
     public GeneratorExecutor(
             MetadataExtractor metadataExtractor, ClassWriter classWriter, Generator generator) {
@@ -22,9 +29,11 @@ public class GeneratorExecutor {
     public void execute(ExecutorParams params) {
         params.getExtractionParameters()
                 .forEach(
-                        param -> {
-                            RawDatabaseMetadata metadata = metadataExtractor.extract(param);
-
+                        extractionParam -> {
+                            RawDatabaseMetadata metadata = resolveMetadata(extractionParam);
+                            if (metadata == null) {
+                                return;
+                            }
                             DateImpl dateImpl = params.getDateImpl();
                             if (dateImpl == null) {
                                 dateImpl = DateImpl.UTIL_DATE;
@@ -32,7 +41,7 @@ public class GeneratorExecutor {
 
                             new JavaDatabaseAdapter(
                                             metadata,
-                                            params.getTargetPackage(),
+                                            params.getGeneratorTarget().getTargetPackage(),
                                             dateImpl,
                                             params.isIncludeGenerationInfo())
                                     .getClasses()
@@ -46,6 +55,29 @@ public class GeneratorExecutor {
                                                                                     javaClass,
                                                                                     template)));
                         });
+    }
+
+    private RawDatabaseMetadata resolveMetadata(ExtractionParameters param) {
+        if (param instanceof DatabaseExtractionParameters) {
+            if (metadataExtractor == null) {
+                return null;
+            }
+            DatabaseExtractionParameters databaseExtractionParameters =
+                    (DatabaseExtractionParameters) param;
+            RawDatabaseMetadata extractedMetadata =
+                    metadataExtractor.extract(databaseExtractionParameters);
+            if (!isEmpty(databaseExtractionParameters.getExportFile())) {
+                new MetadataPorter()
+                        .export(extractedMetadata, databaseExtractionParameters.getExportFile());
+                return null;
+            } else {
+                return extractedMetadata;
+            }
+        } else if (param instanceof MetadataFileExtractionParameters) {
+            return serializedMetadataProvider.provide((MetadataFileExtractionParameters) param);
+        } else {
+            throw new RuntimeException("Unknown extractionType: " + param);
+        }
     }
 
     private void generateSource(

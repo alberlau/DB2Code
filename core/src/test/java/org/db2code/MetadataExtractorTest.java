@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Objects;
-import org.db2code.extractors.ExtractionParameters;
+import org.db2code.extractors.DatabaseExtractionParameters;
 import org.db2code.rawmodel.RawDatabaseMetadata;
 import org.h2.util.IOUtils;
 import org.junit.jupiter.api.Assertions;
@@ -46,9 +46,8 @@ class MetadataExtractorTest {
 
     @Test
     public void genericTest() throws IOException {
-        ExtractionParameters extractionParameters = new ExtractionParameters();
-        extractionParameters.setSchemaPattern("TEST_SCHEMA");
-        extractionParameters.setCatalog("TEST");
+        DatabaseExtractionParameters extractionParameters =
+                new DatabaseExtractionParameters("TEST", "TEST_SCHEMA", null, null, null);
         RawDatabaseMetadata metadata = metadataExtractor.extract(extractionParameters);
 
         JsonNode expected =
@@ -61,7 +60,8 @@ class MetadataExtractorTest {
 
     @Test
     public void noFiltersTest() {
-        RawDatabaseMetadata metadata = metadataExtractor.extract(new ExtractionParameters());
+        RawDatabaseMetadata metadata =
+                metadataExtractor.extract(new DatabaseExtractionParameters());
         Assertions.assertTrue(
                 metadata.getTables().size() > 3,
                 "Tables more than we defined. Should include system tables");
@@ -75,8 +75,8 @@ class MetadataExtractorTest {
 
     @Test
     public void tableFilterTest() throws IOException {
-        ExtractionParameters extractionParameters = new ExtractionParameters();
-        extractionParameters.setTableNamePattern("TEST_TABLE_1");
+        DatabaseExtractionParameters extractionParameters =
+                DatabaseExtractionParameters.builder().tableNamePattern("TEST_TABLE_1").build();
         RawDatabaseMetadata metadata = metadataExtractor.extract(extractionParameters);
 
         JsonNode expected =

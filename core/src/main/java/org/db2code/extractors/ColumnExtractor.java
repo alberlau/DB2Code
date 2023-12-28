@@ -9,8 +9,9 @@ import org.db2code.convert.JavaPropertyConverter;
 import org.db2code.md.ColumnMetadata;
 import org.db2code.rawmodel.RawColumn;
 
-public class ColumnExtractor extends AbstractExtractor {
-    public List<RawColumn> extract(DatabaseMetaData databaseMetaData, ExtractionParameters params) {
+public class ColumnExtractor extends AbstractExtractor<DatabaseExtractionParameters> {
+    public List<RawColumn> extract(
+            DatabaseMetaData databaseMetaData, DatabaseExtractionParameters params) {
         try {
             return _extract(databaseMetaData, params);
         } catch (Exception e) {
@@ -18,7 +19,8 @@ public class ColumnExtractor extends AbstractExtractor {
         }
     }
 
-    private List<RawColumn> _extract(DatabaseMetaData databaseMetaData, ExtractionParameters params)
+    private List<RawColumn> _extract(
+            DatabaseMetaData databaseMetaData, DatabaseExtractionParameters params)
             throws SQLException {
         List<RawColumn> results = new ArrayList<>();
         try (ResultSet columns =
