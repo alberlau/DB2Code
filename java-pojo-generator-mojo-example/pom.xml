@@ -94,7 +94,7 @@
                             </extractionParameters>
                             <baseDir>${project.basedir}</baseDir>
                             <targetFolder>target/generated-sources</targetFolder>
-                            <targetPackage>from_imported_metadata</targetPackage>
+                            <targetPackage>from_imported_metadata.testpkg</targetPackage>
                             <!-- Default pojo.mustache is invoked -->
                         </configuration>
                     </execution>

@@ -9,19 +9,22 @@ import org.db2code.rawmodel.RawTable;
 
 public class JavaPropertyAdapter {
     private final RawColumn rawColumn;
-    private final String JAVA_INTEGER = "Integer";
-    private final String JAVA_LONG = "Long";
-    private final String JAVA_BIG_DECIMAL = "java.math.BigDecimal";
-    private final String JAVA_CHAR = "Char";
-    private final String JAVA_STRING = "String";
-    private final String JAVA_DATE = "java.util.Date";
-    private final String JAVA_LOCAL_DATE = "java.time.LocalDate";
-    private final String JAVA_LOCAL_DATE_TIME = "java.time.LocalDateTime";
-    private final String JAVA_BYTE_ARRAY = "byte[]";
-    private final String JAVA_CHAR_ARRAY = "char[]";
-    private final String JAVA_OBJECT = "Object";
-    private final String JAVA_BOOLEAN = "Boolean";
+    private static final String JAVA_INTEGER = "Integer";
+    private static final String JAVA_LONG = "Long";
+    private static final String JAVA_BIG_DECIMAL = "java.math.BigDecimal";
+    private static final String JAVA_CHAR = "Char";
+    private static final String JAVA_STRING = "String";
+    private static final String JAVA_DATE = "java.util.Date";
+    private static final String JAVA_LOCAL_DATE = "java.time.LocalDate";
+    private static final String JAVA_LOCAL_DATE_TIME = "java.time.LocalDateTime";
+    private static final String JAVA_BYTE_ARRAY = "byte[]";
+    private static final String JAVA_CHAR_ARRAY = "char[]";
+    private static final String JAVA_OBJECT = "Object";
+    private static final String JAVA_BOOLEAN = "Boolean";
+
+    @SuppressWarnings("PMD.UnusedPrivateField")
     private final RawTable rawTable;
+
     private final Set<String> primaryKeyColumns;
     private final DateImpl dateImpl;
 
@@ -65,6 +68,7 @@ public class JavaPropertyAdapter {
         }
     }
 
+    @SuppressWarnings("PMD.CyclomaticComplexity")
     public String getJavaType() {
         switch (rawColumn.getDataType()) {
             case -6:

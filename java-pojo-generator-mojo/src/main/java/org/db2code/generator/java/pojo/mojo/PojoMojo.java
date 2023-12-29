@@ -41,15 +41,34 @@ public class PojoMojo extends AbstractMojo {
 
     @Parameter private DateImpl dateImpl;
     @Parameter private boolean includeGenerationInfo;
+    private ConnectionProvider connectionProvider = null;
 
     public void execute() {
+        try {
+            _execute();
+        } finally {
+            closeConnectionProvider();
+        }
+    }
+
+    private void closeConnectionProvider() {
+        try {
+            if (connectionProvider != null) {
+                connectionProvider.close();
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void _execute() {
         if (!isEmpty(jdbcUrl) && isWindows()) {
             jdbcUrl = jdbcUrl.replace("\\", "\\\\");
         }
 
         MetadataExtractor metadataExtractor = null;
         if (!isEmpty(jdbcUrl) && !isEmpty(jdbcClassName)) {
-            ConnectionProvider connectionProvider =
+            connectionProvider =
                     new ConnectionProvider(
                             this.jdbcClassName, this.jdbcUrl, this.jdbcUser, this.jdbcPassword);
             metadataExtractor = new MetadataExtractor(connectionProvider);
@@ -82,8 +101,7 @@ public class PojoMojo extends AbstractMojo {
                                 if (!isEmpty(item.getCatalog())
                                         || !isEmpty(item.getSchemaPattern())
                                         || !isEmpty(item.getTableNamePattern())
-                                        || (item.getTypes() != null
-                                                && item.getTypes().length > 0)) {
+                                        || item.getTypes() != null && item.getTypes().length > 0) {
                                     throw new RuntimeException(
                                             "If importFile is specified, no database related parameters should be specified. Metadata is loaded from file specified!");
                                 }
