@@ -1,6 +1,11 @@
 package org.db2code.convert;
 
-public class JavaPropertyConverter {
+public final class JavaPropertyConverter {
+
+    private JavaPropertyConverter() {
+        // Utility class
+    }
+
     public static String camelCaseFromSnakeCaseInitCap(String columnName) {
         return camelCaseFromSnakeCase(columnName, true);
     }

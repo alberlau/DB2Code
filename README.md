@@ -44,7 +44,7 @@ Modify your pom.xml as bellow and adjust necessary parameters:
                     <dependency>
                         <groupId>com.h2database</groupId>
                         <artifactId>h2</artifactId>
-                        <version>${h2.version}</version>
+                        <version>2.2.224</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -75,7 +75,8 @@ Optionally if you need to attach generated code to your source code add this:
             </plugin>
 ```
 
-Configuration params:
+### Configuration params
+
 - __jdbcUrl__
 - __jdbcClassName__
 - __jdbcUser__
@@ -85,6 +86,8 @@ Configuration params:
   - __catalog__ can be blank, mostly it's database
   - __tableNamePattern__ supports %_, can be blank, selects all tables
   - __types__ one of TABLE, VIEW, SYSTEM_TABLE, GLOBAL_TEMPORARY, LOCAL_TEMPORARY, ALIAS, SYNONYM, can be blank
+  - __exportFile__ file to export metadata, which later can be imported from that file, instead of fetching from DB
+  - __importFile__ metadata file previously exported with exportFile, which can be used as source of metadata
 - __baseDir__ where to output generated source, can be ${project.baseDir}
 - __targetFolder__ where to put sources under baseDir, can be target/generated-sources
 - __targetPackage__ what package should be used for generated classes
@@ -92,10 +95,73 @@ Configuration params:
 - __dateImpl__ what java date implementation should be used: UTIL_DATE or LOCAL_DATE
 - __includeGenerationInfo__ should info about generation be included? Defaults to false
 
-You can customize generation template, by providing __templates__ list.
+You can customize generation template, by providing __templates__ list:
+```xml
+  <templates>
+      <template>some-template.mustache</template>
+  </templates>
+```
+
+Currently built-in templates are: __pojo.mustache__, __spring-data.mustache__.
+You can provide your own template:
+
+```xml
+  <templates>
+      <template>${project.baseUri}/my-custom.mustache</template>
+  </templates>
+```
+
+
 You can provide multiple executions with different id's to select from different schemas, providing different templates or some other config options.
 
 Check https://github.com/alberlau/DB2Code/tree/master/java-pojo-generator-mojo-example and see example usage.
 
 To see what is exposed into model, check: https://github.com/alberlau/DB2Code/tree/master/core/src/main/java/org/db2code/rawmodel classes
 along with adapter class: https://github.com/alberlau/DB2Code/blob/master/java-pojo-generator/src/main/java/org/db2code/generator/java/pojo/adapter/JavaClassAdapter.java
+
+### Use case: export/import from metadata file
+
+To exportMetadata, add to configuration/extractionParameters exportFile
+
+```xml
+  <execution>
+      <id>exportMetadata</id>
+      <goals>
+          <goal>generatePojo</goal>
+      </goals>
+      <configuration>
+          <includeGenerationInfo>true</includeGenerationInfo>
+          <jdbcUrl>jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;INIT=RUNSCRIPT FROM '${project.basedir}/init.sql'</jdbcUrl>
+          <jdbcClassName>org.h2.Driver</jdbcClassName>
+          <extractionParameters>
+              <item>
+                  <schemaPattern>TEST_SCHEMA</schemaPattern>
+                  <catalog>TEST</catalog>
+                  <exportFile>${basedir}/target/classes/TEST_SCHEMA.json</exportFile>
+              </item>
+          </extractionParameters>
+      </configuration>
+  </execution>
+```
+Above can be added under separate maven profile.
+
+Then metadata file can be imported with such execution:
+```xml
+  <execution>
+      <id>importFromExportedMetadata</id>
+      <goals>
+          <goal>generatePojo</goal>
+      </goals>
+      <configuration>
+          <includeGenerationInfo>true</includeGenerationInfo>
+          <extractionParameters>
+              <item>
+                  <importFile>${basedir}/target/classes/TEST_SCHEMA.json</importFile>
+              </item>
+          </extractionParameters>
+          <baseDir>${project.basedir}</baseDir>
+          <targetFolder>target/generated-sources</targetFolder>
+          <targetPackage>com.mypkg</targetPackage>
+      </configuration>
+  </execution>
+```

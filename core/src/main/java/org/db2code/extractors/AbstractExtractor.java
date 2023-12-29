@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.db2code.rawmodel.AbstractRawItem;
 
-public abstract class AbstractExtractor {
+public abstract class AbstractExtractor<T extends ExtractionParameters> {
     protected void setProperty(Object object, Object mdValue, String propName) {
         try {
             PropertyUtils.setProperty(object, propName, mdValue);
@@ -16,5 +16,5 @@ public abstract class AbstractExtractor {
     }
 
     public abstract List<? extends AbstractRawItem> extract(
-            DatabaseMetaData databaseMetaData, ExtractionParameters params);
+            DatabaseMetaData databaseMetaData, T params);
 }

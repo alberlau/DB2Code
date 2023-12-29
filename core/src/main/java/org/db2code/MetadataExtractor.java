@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import org.db2code.extractors.ColumnExtractor;
-import org.db2code.extractors.ExtractionParameters;
+import org.db2code.extractors.DatabaseExtractionParameters;
 import org.db2code.extractors.TableExtractor;
 import org.db2code.rawmodel.RawColumn;
 import org.db2code.rawmodel.RawDatabaseMetadata;
@@ -19,7 +19,7 @@ public class MetadataExtractor {
         this.connectionProvider = connectionProvider;
     }
 
-    public RawDatabaseMetadata extract(ExtractionParameters extractionParameters) {
+    public RawDatabaseMetadata extract(DatabaseExtractionParameters extractionParameters) {
         DatabaseMetaData databaseMetaData;
         try {
             databaseMetaData = connectionProvider.getConnection().getMetaData();
