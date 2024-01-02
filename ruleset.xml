@@ -58,8 +58,6 @@
     <rule ref="category/java/errorprone.xml/DontImportSun" />
     <rule ref="category/java/errorprone.xml/DontUseFloatTypeForLoopIndices" />
 
-    <rule ref="category/java/errorprone.xml/DontUseFloatTypeForLoopIndices" />
-
     <rule ref="category/java/errorprone.xml/JumbledIncrementer" />
     <rule ref="category/java/errorprone.xml/MisplacedNullCheck" />
     <rule ref="category/java/errorprone.xml/OverrideBothEqualsAndHashcode" />
