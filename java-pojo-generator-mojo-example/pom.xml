@@ -12,7 +12,7 @@
     <artifactId>java-pojo-generator-mojo-example</artifactId>
 
     <properties>
-        <spring.version>2.5.14</spring.version>
+        <spring-boot.version>3.2.1</spring-boot.version>
     </properties>
     <dependencies>
         <dependency>
@@ -22,18 +22,18 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jdbc</artifactId>
-            <version>${spring.version}</version>
+            <version>${spring-boot.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
-            <version>${spring.version}</version>
+            <version>${spring-boot.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-            <version>${spring.version}</version>
+            <version>${spring-boot.version}</version>
         </dependency>
         <dependency>
             <groupId>jakarta.validation</groupId>
