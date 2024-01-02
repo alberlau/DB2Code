@@ -12,7 +12,7 @@ public class JavaPropertyAdapter {
     private static final String JAVA_INTEGER = "Integer";
     private static final String JAVA_LONG = "Long";
     private static final String JAVA_BIG_DECIMAL = "java.math.BigDecimal";
-    private static final String JAVA_CHAR = "Char";
+    private static final String JAVA_CHAR = "Character";
     private static final String JAVA_STRING = "String";
     private static final String JAVA_DATE = "java.util.Date";
     private static final String JAVA_LOCAL_DATE = "java.time.LocalDate";

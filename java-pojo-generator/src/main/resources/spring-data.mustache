@@ -9,7 +9,7 @@ import org.springframework.data.relational.core.mapping.Table;
 
     {{generationInfo}}{{/generationInfo}}
 */
-@Table("{{rawTable.tableName}}")
+@Table(schema = "{{rawTable.tableSchem}}", name = "{{rawTable.tableName}}")
 public class {{className}} {
     {{#properties}}
 
