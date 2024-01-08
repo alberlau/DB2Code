@@ -1,6 +1,6 @@
 package org.db2code.md;
 
-public enum TableMetadata {
+public enum TableMetadata implements ResultsetMetadata {
     TABLE_CAT,
     TABLE_SCHEM,
     TABLE_NAME,
@@ -10,5 +10,10 @@ public enum TableMetadata {
     TYPE_SCHEM,
     TYPE_NAME,
     SELF_REFERENCING_COL_NAME,
-    REF_GENERATION
+    REF_GENERATION;
+
+    @Override
+    public String getName() {
+        return name();
+    }
 }

@@ -5,7 +5,7 @@ import java.util.Collection;
 import lombok.Data;
 
 @Data
-public class RawTable extends AbstractRawItem {
+public class RawTable extends AbstractRawTableItem {
     private String tableType;
     private String remarks;
     private String typeCat;
@@ -19,7 +19,7 @@ public class RawTable extends AbstractRawItem {
     private Collection<RawForeignKey> foreignKeys;
 
     @Data
-    public static class RawPrimaryKey extends AbstractRawItem {
+    public static class RawPrimaryKey extends AbstractRawTableItem {
         private String columnName;
         private String keySeq;
         private String pkName;

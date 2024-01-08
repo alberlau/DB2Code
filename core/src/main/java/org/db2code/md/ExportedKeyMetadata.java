@@ -1,6 +1,6 @@
 package org.db2code.md;
 
-public enum ExportedKeyMetadata {
+public enum ExportedKeyMetadata implements ResultsetMetadata {
     PKTABLE_CAT,
     PKTABLE_SCHEM,
     PKTABLE_NAME,
@@ -14,5 +14,10 @@ public enum ExportedKeyMetadata {
     DELETE_RULE,
     FK_NAME,
     PK_NAME,
-    DEFERRABILITY
+    DEFERRABILITY;
+
+    @Override
+    public String getName() {
+        return name();
+    }
 }

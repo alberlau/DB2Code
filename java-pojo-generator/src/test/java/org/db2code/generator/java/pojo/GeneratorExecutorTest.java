@@ -66,6 +66,7 @@ class GeneratorExecutorTest {
                                         "testSchemaPattern",
                                         "testTablePattern",
                                         new String[] {},
+                                        null,
                                         null)),
                         Arrays.asList("pojo.mustache"),
                         new GeneratorTarget(TESTPKG, TARGET_FOLDER, dir),

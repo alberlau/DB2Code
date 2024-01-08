@@ -7,10 +7,9 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import org.db2code.extractors.ColumnExtractor;
 import org.db2code.extractors.DatabaseExtractionParameters;
+import org.db2code.extractors.ProcedureExtractor;
 import org.db2code.extractors.TableExtractor;
-import org.db2code.rawmodel.RawColumn;
-import org.db2code.rawmodel.RawDatabaseMetadata;
-import org.db2code.rawmodel.RawTable;
+import org.db2code.rawmodel.*;
 
 public class MetadataExtractor {
     private final ConnectionProvider connectionProvider;
@@ -23,19 +22,36 @@ public class MetadataExtractor {
         DatabaseMetaData databaseMetaData;
         try {
             databaseMetaData = connectionProvider.getConnection().getMetaData();
-            List<RawTable> tablesResults =
-                    new TableExtractor().extract(databaseMetaData, extractionParameters);
-            List<RawColumn> columnsResult =
-                    new ColumnExtractor().extract(databaseMetaData, extractionParameters);
-            tablesResults.forEach(
-                    rawTable ->
-                            rawTable.setColumns(filterAndProcessColumns(rawTable, columnsResult)));
             RawDatabaseMetadata rawDatabaseMetadata = new RawDatabaseMetadata();
-            rawDatabaseMetadata.setTables(tablesResults);
+            extractTables(extractionParameters, databaseMetaData, rawDatabaseMetadata);
+            extractProcedures(extractionParameters, databaseMetaData, rawDatabaseMetadata);
             return rawDatabaseMetadata;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private static void extractProcedures(
+            DatabaseExtractionParameters extractionParameters,
+            DatabaseMetaData databaseMetaData,
+            RawDatabaseMetadata rawDatabaseMetadata) {
+        ProcedureExtractor procedureExtractor = new ProcedureExtractor();
+        List<RawProcedure> procedures =
+                procedureExtractor.extract(databaseMetaData, extractionParameters);
+        rawDatabaseMetadata.setProcedures(procedures);
+    }
+
+    private static void extractTables(
+            DatabaseExtractionParameters extractionParameters,
+            DatabaseMetaData databaseMetaData,
+            RawDatabaseMetadata rawDatabaseMetadata) {
+        List<RawTable> tablesResults =
+                new TableExtractor().extract(databaseMetaData, extractionParameters);
+        List<RawColumn> columnsResult =
+                new ColumnExtractor().extract(databaseMetaData, extractionParameters);
+        tablesResults.forEach(
+                rawTable -> rawTable.setColumns(filterAndProcessColumns(rawTable, columnsResult)));
+        rawDatabaseMetadata.setTables(tablesResults);
     }
 
     private static List<RawColumn> filterAndProcessColumns(

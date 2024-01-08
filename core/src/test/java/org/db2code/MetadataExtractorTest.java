@@ -47,7 +47,7 @@ class MetadataExtractorTest {
     @Test
     public void genericTest() throws IOException {
         DatabaseExtractionParameters extractionParameters =
-                new DatabaseExtractionParameters("TEST", "TEST_SCHEMA", null, null, null);
+                new DatabaseExtractionParameters("TEST", "TEST_SCHEMA", null, null, null, null);
         RawDatabaseMetadata metadata = metadataExtractor.extract(extractionParameters);
 
         JsonNode expected =

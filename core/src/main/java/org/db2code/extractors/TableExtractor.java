@@ -39,7 +39,7 @@ public class TableExtractor extends AbstractExtractor<DatabaseExtractionParamete
                 for (TableMetadata mdItem : TableMetadata.values()) {
                     String mdValue = tryGetFromMetadata(mdItem, tables);
                     String propName =
-                            JavaPropertyConverter.camelCaseFromSnakeCaseInitLow(mdItem.name());
+                            JavaPropertyConverter.camelCaseFromSnakeCaseInitLow(mdItem.getName());
                     setProperty(rawTable, mdValue, propName);
                 }
 
@@ -50,15 +50,6 @@ public class TableExtractor extends AbstractExtractor<DatabaseExtractionParamete
             }
             return results;
         }
-    }
-
-    private static String tryGetFromMetadata(TableMetadata mdItem, ResultSet tables) {
-        try {
-            return tables.getString(mdItem.name());
-        } catch (SQLException e) {
-            log.error("Error while getting metadata: " + e.getMessage());
-        }
-        return null;
     }
 
     private List<RawForeignKey> extractForeignKeys(

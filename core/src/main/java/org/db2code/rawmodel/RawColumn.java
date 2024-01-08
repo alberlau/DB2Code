@@ -3,7 +3,7 @@ package org.db2code.rawmodel;
 import lombok.Data;
 
 @Data
-public class RawColumn extends AbstractRawItem {
+public class RawColumn extends AbstractRawTableItem {
     private String columnName;
     private Integer dataType;
     private String typeName;

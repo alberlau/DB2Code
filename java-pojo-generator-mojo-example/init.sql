@@ -29,3 +29,9 @@ CREATE TABLE IF NOT EXISTS test_schema.test_table_3
     FOREIGN KEY (simple_id_1) REFERENCES test_schema.test_table_1 (simple_id_1),
     FOREIGN KEY (simple_id_2) REFERENCES test_schema.test_table_2 (simple_id_2)
 );
+
+CREATE ALIAS IF NOT EXISTS NEXT_PRIME AS '
+String nextPrime(String value) {
+    return new BigInteger(value).nextProbablePrime().toString();
+}
+';

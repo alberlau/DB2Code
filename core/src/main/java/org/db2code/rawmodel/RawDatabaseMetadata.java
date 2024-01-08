@@ -7,4 +7,5 @@ import lombok.Data;
 @Data
 public class RawDatabaseMetadata {
     private List<RawTable> tables = new ArrayList<>();
+    private List<RawProcedure> procedures = new ArrayList<>();
 }
