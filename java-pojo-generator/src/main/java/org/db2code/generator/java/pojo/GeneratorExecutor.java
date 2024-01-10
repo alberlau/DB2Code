@@ -2,15 +2,17 @@ package org.db2code.generator.java.pojo;
 
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 
+import lombok.extern.slf4j.Slf4j;
 import org.db2code.MetadataExtractor;
 import org.db2code.extractors.DatabaseExtractionParameters;
 import org.db2code.extractors.ExtractionParameters;
 import org.db2code.extractors.MetadataFileExtractionParameters;
+import org.db2code.generator.java.pojo.adapter.ClassAdapter;
 import org.db2code.generator.java.pojo.adapter.DateImpl;
-import org.db2code.generator.java.pojo.adapter.JavaClassAdapter;
 import org.db2code.generator.java.pojo.adapter.JavaDatabaseAdapter;
 import org.db2code.rawmodel.RawDatabaseMetadata;
 
+@Slf4j
 public class GeneratorExecutor {
 
     private final MetadataExtractor metadataExtractor;
@@ -66,6 +68,7 @@ public class GeneratorExecutor {
                     (DatabaseExtractionParameters) param;
             RawDatabaseMetadata extractedMetadata =
                     metadataExtractor.extract(databaseExtractionParameters);
+            log.debug("Extracted database metadata is as follows: " + extractedMetadata);
             if (!isEmpty(databaseExtractionParameters.getExportFile())) {
                 new MetadataPorter()
                         .export(extractedMetadata, databaseExtractionParameters.getExportFile());
@@ -80,9 +83,8 @@ public class GeneratorExecutor {
         }
     }
 
-    private void generateSource(
-            ExecutorParams params, JavaClassAdapter javaClass, String template) {
-        String source = generator.generate(javaClass, template);
-        classWriter.write(params, javaClass.getClassName(), source);
+    private void generateSource(ExecutorParams params, ClassAdapter classAdapter, String template) {
+        String source = generator.generate(classAdapter, template);
+        classWriter.write(params, classAdapter.getClassName(), source);
     }
 }

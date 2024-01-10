@@ -22,4 +22,16 @@ public class PojoGenTest {
         objectMapper.readTree(PojoGenTest.class.getResourceAsStream("/TestTable2.json"));
         objectMapper.readTree(PojoGenTest.class.getResourceAsStream("/TestTable3.json"));
     }
+
+    @Test
+    public void testFromImportedMetadataExists() {
+        new from_imported_metadata.testpkg.TestTable1();
+        new from_imported_metadata.testpkg.TestTable2();
+        new from_imported_metadata.testpkg.TestTable3();
+    }
+
+    @Test
+    public void testGeneratedJson() throws IOException {
+        new ObjectMapper().readTree(PojoGenTest.class.getResourceAsStream("/TEST_SCHEMA.json"));
+    }
 }

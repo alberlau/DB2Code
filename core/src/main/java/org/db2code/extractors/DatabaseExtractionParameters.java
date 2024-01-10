@@ -6,6 +6,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 public class DatabaseExtractionParameters implements ExtractionParameters {
     private String catalog;
     private String schemaPattern;
@@ -13,4 +14,5 @@ public class DatabaseExtractionParameters implements ExtractionParameters {
     private String[] types;
     private String exportFile;
     private String procedureNamePattern;
+    boolean includeStoredProcedures;
 }

@@ -1,8 +1,10 @@
 package org.db2code.rawmodel;
 
 import lombok.Data;
+import lombok.ToString;
 
 @Data
+@ToString(callSuper = true)
 public class RawColumn extends AbstractRawTableItem {
     private String columnName;
     private Integer dataType;

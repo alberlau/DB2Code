@@ -12,4 +12,6 @@ public class Item {
     private String[] types;
     private String importFile;
     private String exportFile;
+    private String procedureNamePattern;
+    private boolean includeStoredProcedures;
 }

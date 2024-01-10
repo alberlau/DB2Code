@@ -1,0 +1,38 @@
+package {{package}};
+
+import java.sql.CallableStatement;
+import java.sql.Types;
+import org.springframework.jdbc.core.CallableStatementCallback;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+/** {{rawProcedure.remarks}}
+    {{rawProcedure.procedureCat}}.{{rawProcedure.procedureSchem}}.{{rawProcedure.procedureName}}{{#generationInfo}}
+
+    {{generationInfo}}{{/generationInfo}}
+*/
+@Repository
+public class {{className}} {
+
+    private final JdbcTemplate jdbcTemplate;
+
+    public {{className}}(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+    {{#singleParameterReturn}}
+    public {{singleParameterReturn.type}} invoke({{#inputParameters}}{{type}} {{name}}{{^isLast}}, {{/isLast}}{{/inputParameters}}) {
+        return jdbcTemplate.execute(con -> {
+                CallableStatement cs = con.prepareCall("{? = CALL {{rawProcedure.procedureName}}({{#inputParameters}}?{{^isLast}}, {{/isLast}}{{/inputParameters}})}");
+                cs.registerOutParameter(1, Types.{{singleParameterReturn.jdbcType}});
+                {{#inputParameters}}
+                cs.set{{type}}({{position}}, {{name}});
+                {{/inputParameters}}
+                return cs;
+            }, (CallableStatementCallback<{{singleParameterReturn.type}}>) cs -> {
+            cs.execute();
+            return cs.get{{singleParameterReturn.type}}(1);
+        });
+    }
+    {{/singleParameterReturn}}
+}

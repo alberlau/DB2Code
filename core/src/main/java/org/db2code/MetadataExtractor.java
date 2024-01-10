@@ -3,13 +3,12 @@ package org.db2code;
 import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
-import org.db2code.extractors.ColumnExtractor;
 import org.db2code.extractors.DatabaseExtractionParameters;
 import org.db2code.extractors.ProcedureExtractor;
 import org.db2code.extractors.TableExtractor;
-import org.db2code.rawmodel.*;
+import org.db2code.rawmodel.RawDatabaseMetadata;
+import org.db2code.rawmodel.RawProcedure;
+import org.db2code.rawmodel.RawTable;
 
 public class MetadataExtractor {
     private final ConnectionProvider connectionProvider;
@@ -24,7 +23,9 @@ public class MetadataExtractor {
             databaseMetaData = connectionProvider.getConnection().getMetaData();
             RawDatabaseMetadata rawDatabaseMetadata = new RawDatabaseMetadata();
             extractTables(extractionParameters, databaseMetaData, rawDatabaseMetadata);
-            extractProcedures(extractionParameters, databaseMetaData, rawDatabaseMetadata);
+            if (extractionParameters.isIncludeStoredProcedures()) {
+                extractProcedures(extractionParameters, databaseMetaData, rawDatabaseMetadata);
+            }
             return rawDatabaseMetadata;
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -47,29 +48,6 @@ public class MetadataExtractor {
             RawDatabaseMetadata rawDatabaseMetadata) {
         List<RawTable> tablesResults =
                 new TableExtractor().extract(databaseMetaData, extractionParameters);
-        List<RawColumn> columnsResult =
-                new ColumnExtractor().extract(databaseMetaData, extractionParameters);
-        tablesResults.forEach(
-                rawTable -> rawTable.setColumns(filterAndProcessColumns(rawTable, columnsResult)));
         rawDatabaseMetadata.setTables(tablesResults);
-    }
-
-    private static List<RawColumn> filterAndProcessColumns(
-            RawTable rawTable, List<RawColumn> columnsResult) {
-        List<RawColumn> filteredColumns =
-                columnsResult.stream()
-                        .filter(isApplicableFor(rawTable))
-                        .collect(Collectors.toList());
-        if (!filteredColumns.isEmpty()) {
-            filteredColumns.get(filteredColumns.size() - 1).setIsLast(true);
-        }
-        return filteredColumns;
-    }
-
-    private static Predicate<RawColumn> isApplicableFor(RawTable rawTable) {
-        return rawColumn ->
-                rawColumn.getTableName().equals(rawTable.getTableName())
-                        && rawColumn.getTableSchem().equals(rawTable.getTableSchem())
-                        && rawColumn.getTableCat().equals(rawTable.getTableCat());
     }
 }

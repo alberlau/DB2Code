@@ -1,8 +1,12 @@
 package org.db2code.rawmodel;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 @SuppressWarnings("PMD.TooManyFields")
 public class RawProcedureParameter extends AbstractRawProcedureItem {
     private String columnName;

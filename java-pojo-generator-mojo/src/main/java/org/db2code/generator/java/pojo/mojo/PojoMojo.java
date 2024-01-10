@@ -41,7 +41,7 @@ public class PojoMojo extends AbstractMojo {
 
     @Parameter private DateImpl dateImpl;
     @Parameter private boolean includeGenerationInfo;
-    @Parameter private String procedureNamePattern;
+
     private ConnectionProvider connectionProvider = null;
 
     public void execute() {
@@ -114,7 +114,8 @@ public class PojoMojo extends AbstractMojo {
                                         item.getTableNamePattern(),
                                         item.getTypes(),
                                         item.getExportFile(),
-                                        procedureNamePattern);
+                                        item.getProcedureNamePattern(),
+                                        item.isIncludeStoredProcedures());
                             }
                         })
                 .collect(Collectors.toList());

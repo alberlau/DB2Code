@@ -1,6 +1,8 @@
 package org.db2code.generator.java.pojo.adapter;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 import org.db2code.rawmodel.RawDatabaseMetadata;
 import org.db2code.rawmodel.RawTable;
@@ -22,12 +24,42 @@ public class JavaDatabaseAdapter {
         this.includeGenerationInfo = includeGenerationInfo;
     }
 
-    public Collection<JavaClassAdapter> getClasses() {
-        return rawDatabaseMetadata.getTables().stream()
-                .map(
-                        (RawTable rawTable) ->
-                                new JavaClassAdapter(
-                                        rawTable, targetPackage, dateImpl, includeGenerationInfo))
-                .collect(Collectors.toList());
+    public Collection<ClassAdapter> getClasses() {
+        List<ClassAdapter> classList = new ArrayList<>();
+        List<ClassAdapter> tableClassList = makeTableClassList();
+        classList.addAll(tableClassList);
+        List<JavaProcedureAdapter> procedureClassList = makeProcedureClassList();
+
+        classList.addAll(procedureClassList);
+
+        return classList;
+    }
+
+    private List<JavaProcedureAdapter> makeProcedureClassList() {
+        List<JavaProcedureAdapter> procedureClassList =
+                rawDatabaseMetadata.getProcedures().stream()
+                        .map(
+                                rawProcedure ->
+                                        new JavaProcedureAdapter(
+                                                rawProcedure,
+                                                targetPackage,
+                                                dateImpl,
+                                                includeGenerationInfo))
+                        .collect(Collectors.toList());
+        return procedureClassList;
+    }
+
+    private List<ClassAdapter> makeTableClassList() {
+        List<ClassAdapter> tableClassList =
+                rawDatabaseMetadata.getTables().stream()
+                        .map(
+                                (RawTable rawTable) ->
+                                        new JavaClassAdapter(
+                                                rawTable,
+                                                targetPackage,
+                                                dateImpl,
+                                                includeGenerationInfo))
+                        .collect(Collectors.toList());
+        return tableClassList;
     }
 }
