@@ -165,6 +165,31 @@
                             </templates>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>storedProcedureExecution</id>
+                        <goals>
+                            <goal>generatePojo</goal>
+                        </goals>
+                        <configuration>
+                            <jdbcUrl>jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;INIT=RUNSCRIPT FROM '${project.basedir}/init.sql'</jdbcUrl>
+                            <jdbcClassName>org.h2.Driver</jdbcClassName>
+                            <extractionParameters>
+                                <item>
+                                    <schemaPattern>TEST_SCHEMA</schemaPattern>
+                                    <catalog>TEST</catalog>
+                                    <tableNamePattern>dont match anything</tableNamePattern>
+                                    <procedureNamePattern>%</procedureNamePattern>
+                                    <includeStoredProcedures>true</includeStoredProcedures>
+                                </item>
+                            </extractionParameters>
+                            <baseDir>${project.basedir}</baseDir>
+                            <targetFolder>target/generated-sources</targetFolder>
+                            <targetPackage>test.sp</targetPackage>
+                            <templates>
+                                <template>${project.baseUri}/sp-jdbcTemplate.mustache</template>
+                            </templates>
+                        </configuration>
+                    </execution>
                 </executions>
                 <dependencies>
                     <dependency>

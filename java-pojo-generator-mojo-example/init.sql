@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS test_schema.test_table_1
     test_varchar  VARCHAR(50)    NOT NULL,
     test_numeric  NUMERIC(10, 2) NOT NULL,
     test_date     DATE           NOT NULL,
+    some_bool     BOOLEAN                ,
     test_datetime TIMESTAMP      NOT NULL
 );
 COMMENT ON TABLE test_schema.test_table_1 IS 'test_table_1 description';
@@ -29,3 +30,9 @@ CREATE TABLE IF NOT EXISTS test_schema.test_table_3
     FOREIGN KEY (simple_id_1) REFERENCES test_schema.test_table_1 (simple_id_1),
     FOREIGN KEY (simple_id_2) REFERENCES test_schema.test_table_2 (simple_id_2)
 );
+
+CREATE ALIAS IF NOT EXISTS NEXT_PRIME AS '
+String nextPrime(String value) {
+    return new BigInteger(value).nextProbablePrime().toString();
+}
+';

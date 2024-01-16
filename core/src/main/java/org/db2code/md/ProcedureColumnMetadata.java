@@ -1,15 +1,17 @@
 package org.db2code.md;
 
-public enum ColumnMetadata implements ResultsetMetadata {
-    TABLE_CAT,
-    TABLE_SCHEM,
-    TABLE_NAME,
+public enum ProcedureColumnMetadata implements ResultsetMetadata {
+    PROCEDURE_CAT,
+    PROCEDURE_SCHEM,
+    PROCEDURE_NAME,
     COLUMN_NAME,
+    COLUMN_TYPE,
     DATA_TYPE,
     TYPE_NAME,
-    COLUMN_SIZE,
-    DECIMAL_DIGITS,
-    NUM_PREC_RADIX,
+    PRECISION,
+    LENGTH,
+    SCALE,
+    RADIX,
     NULLABLE,
     REMARKS,
     COLUMN_DEF,
@@ -17,7 +19,8 @@ public enum ColumnMetadata implements ResultsetMetadata {
     SQL_DATETIME_SUB,
     CHAR_OCTET_LENGTH,
     ORDINAL_POSITION,
-    IS_NULLABLE;
+    IS_NULLABLE,
+    SPECIFIC_NAME;
 
     @Override
     public String getName() {

@@ -10,11 +10,15 @@ import org.db2code.convert.JavaPropertyConverter;
 import org.db2code.md.ExportedKeyMetadata;
 import org.db2code.md.PrimaryKeyMetadata;
 import org.db2code.md.TableMetadata;
+import org.db2code.rawmodel.RawColumn;
 import org.db2code.rawmodel.RawForeignKey;
 import org.db2code.rawmodel.RawTable;
 
 @Slf4j
 public class TableExtractor extends AbstractExtractor<DatabaseExtractionParameters> {
+
+    private final ColumnExtractor columnExtractor = new ColumnExtractor();
+
     public List<RawTable> extract(
             DatabaseMetaData databaseMetaData, DatabaseExtractionParameters params) {
         try {
@@ -39,26 +43,38 @@ public class TableExtractor extends AbstractExtractor<DatabaseExtractionParamete
                 for (TableMetadata mdItem : TableMetadata.values()) {
                     String mdValue = tryGetFromMetadata(mdItem, tables);
                     String propName =
-                            JavaPropertyConverter.camelCaseFromSnakeCaseInitLow(mdItem.name());
+                            JavaPropertyConverter.camelCaseFromSnakeCaseInitLow(mdItem.getName());
                     setProperty(rawTable, mdValue, propName);
                 }
 
                 rawTable.setPrimaryKey(extractPrimaryKeys(databaseMetaData, rawTable));
                 rawTable.setForeignKeys(extractForeignKeys(databaseMetaData, rawTable));
-
+                setColumns(databaseMetaData, params, rawTable);
                 results.add(rawTable);
             }
             return results;
         }
     }
 
-    private static String tryGetFromMetadata(TableMetadata mdItem, ResultSet tables) {
-        try {
-            return tables.getString(mdItem.name());
-        } catch (SQLException e) {
-            log.error("Error while getting metadata: " + e.getMessage());
+    private void setColumns(
+            DatabaseMetaData databaseMetaData,
+            DatabaseExtractionParameters params,
+            RawTable rawTable) {
+        List<RawColumn> rawColumns =
+                columnExtractor.extract(
+                        databaseMetaData,
+                        new DatabaseExtractionParameters(
+                                params.getCatalog(),
+                                params.getSchemaPattern(),
+                                rawTable.getTableName(),
+                                null,
+                                null,
+                                null,
+                                false));
+        if (!rawColumns.isEmpty()) {
+            rawColumns.get(rawColumns.size() - 1).setIsLast(true);
         }
-        return null;
+        rawTable.setColumns(rawColumns);
     }
 
     private List<RawForeignKey> extractForeignKeys(

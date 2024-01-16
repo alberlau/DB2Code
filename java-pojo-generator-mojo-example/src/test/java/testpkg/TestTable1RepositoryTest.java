@@ -2,6 +2,7 @@ package testpkg;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -24,6 +25,7 @@ public class TestTable1RepositoryTest {
     public void testSaveAndFind() {
         TestTable1 entity = new TestTable1();
         entity.setTestVarchar("Test Name");
+        entity.setSomeBool(true);
         entity.setTestNumeric(BigDecimal.ONE);
         entity.setTestDate(LocalDate.now());
         entity.setTestDatetime(LocalDate.now().atStartOfDay());
@@ -31,11 +33,12 @@ public class TestTable1RepositoryTest {
 
         assertThat(savedEntity).isNotNull();
         assertThat(savedEntity.getSimpleId1()).isNotNull();
-
+        assertTrue(savedEntity.getSomeBool());
         assertThat(savedEntity.getTestVarchar()).isEqualTo(entity.getTestVarchar());
 
         TestTable1 foundEntity = repository.findById(savedEntity.getSimpleId1()).orElse(null);
         assertThat(foundEntity).isNotNull();
+        assertTrue(savedEntity.getSomeBool());
         assertThat(foundEntity.getTestVarchar()).isEqualTo("Test Name");
     }
 

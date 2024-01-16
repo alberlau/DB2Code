@@ -5,15 +5,15 @@ import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
 import java.io.IOException;
 import java.io.StringWriter;
-import org.db2code.generator.java.pojo.adapter.JavaClassAdapter;
+import org.db2code.generator.java.pojo.adapter.ClassAdapter;
 
 public class Generator {
-    public String generate(JavaClassAdapter javaClassAdapter, String template) {
+    public String generate(ClassAdapter classAdapter, String template) {
         MustacheFactory mf = new DefaultMustacheFactory();
         Mustache mustache = mf.compile(template);
         StringWriter writer = new StringWriter();
         try {
-            mustache.execute(writer, javaClassAdapter).flush();
+            mustache.execute(writer, classAdapter).flush();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

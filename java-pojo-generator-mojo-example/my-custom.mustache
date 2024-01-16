@@ -55,5 +55,10 @@
             "deferrability": {{deferrability}}
         }{{^isLast}},{{/isLast}}
     {{/rawTable.foreignKeys}}
+    ],
+    "procedures": [
+        {{#procedures}}
+        "{{procedureName}}"{{^isLast}},{{/isLast}}
+        {{/procedures}}
     ]
 }

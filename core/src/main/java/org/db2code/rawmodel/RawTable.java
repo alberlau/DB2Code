@@ -3,9 +3,11 @@ package org.db2code.rawmodel;
 import java.util.ArrayList;
 import java.util.Collection;
 import lombok.Data;
+import lombok.ToString;
 
 @Data
-public class RawTable extends AbstractRawItem {
+@ToString(callSuper = true)
+public class RawTable extends AbstractRawTableItem {
     private String tableType;
     private String remarks;
     private String typeCat;
@@ -19,7 +21,8 @@ public class RawTable extends AbstractRawItem {
     private Collection<RawForeignKey> foreignKeys;
 
     @Data
-    public static class RawPrimaryKey extends AbstractRawItem {
+    @ToString(callSuper = true)
+    public static class RawPrimaryKey extends AbstractRawTableItem {
         private String columnName;
         private String keySeq;
         private String pkName;

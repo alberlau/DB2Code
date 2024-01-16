@@ -66,10 +66,10 @@
           "isNullable": "NO"
         },
         {
+          "isLast": true,
           "tableCat": "TEST",
           "tableSchem": "TEST_SCHEMA",
           "tableName": "TEST_TABLE_1",
-          "isLast": true,
           "columnName": "TEST_DATETIME",
           "dataType": 93,
           "typeName": "TIMESTAMP",
@@ -83,10 +83,10 @@
       ],
       "primaryKey": [
         {
+          "isLast": true,
           "tableCat": "TEST",
           "tableSchem": "TEST_SCHEMA",
           "tableName": "TEST_TABLE_1",
-          "isLast": true,
           "columnName": "SIMPLE_ID_1",
           "keySeq": "1",
           "pkName": "CONSTRAINT_D"
@@ -194,10 +194,10 @@
           "isNullable": "YES"
         },
         {
+          "isLast": true,
           "tableCat": "TEST",
           "tableSchem": "TEST_SCHEMA",
           "tableName": "TEST_TABLE_2",
-          "isLast": true,
           "columnName": "TEST_DATETIME",
           "dataType": 93,
           "typeName": "TIMESTAMP",
@@ -211,10 +211,10 @@
       ],
       "primaryKey": [
         {
+          "isLast": true,
           "tableCat": "TEST",
           "tableSchem": "TEST_SCHEMA",
           "tableName": "TEST_TABLE_2",
-          "isLast": true,
           "columnName": "SIMPLE_ID_2",
           "keySeq": "1",
           "pkName": "CONSTRAINT_DC"
@@ -262,10 +262,10 @@
           "isNullable": "NO"
         },
         {
+          "isLast": true,
           "tableCat": "TEST",
           "tableSchem": "TEST_SCHEMA",
           "tableName": "TEST_TABLE_3",
-          "isLast": true,
           "columnName": "SIMPLE_ID_2",
           "dataType": 4,
           "typeName": "INTEGER",
@@ -281,5 +281,6 @@
       "primaryKey": [],
       "foreignKeys": []
     }
-  ]
+  ],
+  "procedures": []
 }
