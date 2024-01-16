@@ -19,7 +19,7 @@ Modify your pom.xml as bellow and adjust necessary parameters:
             <plugin>
                 <groupId>org.db2code</groupId>
                 <artifactId>java-pojo-generator-mojo</artifactId>
-                <version>1.1.1</version>
+                <version>1.2</version>
                 <configuration>
                     <jdbcUrl>jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;INIT=RUNSCRIPT FROM '${project.basedir}/init.sql'</jdbcUrl>
                     <jdbcClassName>org.h2.Driver</jdbcClassName>
