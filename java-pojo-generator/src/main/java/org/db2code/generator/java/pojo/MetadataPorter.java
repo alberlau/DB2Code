@@ -27,7 +27,10 @@ public class MetadataPorter {
             File resultFile = new File(fileName);
             if (!resultFile.exists()) {
                 log.info("File does not exists and will be created");
-                resultFile.getParentFile().mkdirs();
+                File parentFile = resultFile.getParentFile();
+                if (parentFile != null) {
+                    parentFile.mkdirs();
+                }
                 if (!resultFile.createNewFile()) {
                     throw new RuntimeException("Was unable to create file: " + fileName);
                 }

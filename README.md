@@ -12,6 +12,16 @@ Before you begin, ensure you have the following installed:
 
 ### Installation
 
+You can use DB2Code in two ways at the moment.
+1. As command line tool
+2. As Maven plugin
+
+#### Using as command line tool
+Look into distr directory.
+Follow README.md in it
+Configuration params is same as for Maven plugin, scroll down to find more details
+
+#### Using as Maven plugin
 Modify your pom.xml as bellow and adjust necessary parameters:
 ```xml
     <build>

@@ -1,0 +1,2 @@
+java -cp "./db2code-jar-with-dependencies.jar;./h2-2.2.224.jar" org.db2code.generator.java.pojo.cmd.Main
+pause
