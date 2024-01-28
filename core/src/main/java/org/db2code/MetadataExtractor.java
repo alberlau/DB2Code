@@ -22,6 +22,9 @@ public class MetadataExtractor {
         try {
             databaseMetaData = connectionProvider.getConnection().getMetaData();
             RawDatabaseMetadata rawDatabaseMetadata = new RawDatabaseMetadata();
+            rawDatabaseMetadata.setDatabaseProductName(databaseMetaData.getDatabaseProductName());
+            rawDatabaseMetadata.setDatabaseProductVersion(
+                    databaseMetaData.getDatabaseProductVersion());
             extractTables(extractionParameters, databaseMetaData, rawDatabaseMetadata);
             if (extractionParameters.isIncludeStoredProcedures()) {
                 extractProcedures(extractionParameters, databaseMetaData, rawDatabaseMetadata);

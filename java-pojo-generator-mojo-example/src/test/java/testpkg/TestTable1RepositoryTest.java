@@ -1,8 +1,7 @@
 package testpkg;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -40,6 +39,7 @@ public class TestTable1RepositoryTest {
         assertThat(foundEntity).isNotNull();
         assertTrue(savedEntity.getSomeBool());
         assertThat(foundEntity.getTestVarchar()).isEqualTo("Test Name");
+        assertEquals("java.time.LocalDate", foundEntity.getTestDate().getClass().getName());
     }
 
     @Test

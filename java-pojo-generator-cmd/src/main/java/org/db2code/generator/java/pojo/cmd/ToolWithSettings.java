@@ -2,9 +2,10 @@ package org.db2code.generator.java.pojo.cmd;
 
 import java.util.List;
 import lombok.Data;
+import org.db2code.generator.java.core.AbstractTool;
+import org.db2code.generator.java.core.Item;
+import org.db2code.generator.java.pojo.GeneratorStrategy;
 import org.db2code.generator.java.pojo.adapter.DateImpl;
-import org.db2code.generator.java.pojo.mojo.AbstractTool;
-import org.db2code.generator.java.pojo.mojo.Item;
 
 @SuppressWarnings("PMD.DataClass")
 @Data
@@ -22,4 +23,7 @@ public class ToolWithSettings implements AbstractTool {
     private String baseDir;
     private String ext;
     private DateImpl dateImpl;
+    private GeneratorStrategy generatorStrategy;
+    private String singleResultName;
+    private String typeMapFile;
 }

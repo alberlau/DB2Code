@@ -1,5 +1,7 @@
 package testpkg;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import org.junit.jupiter.api.Test;
@@ -9,8 +11,11 @@ import pojo.testpkg.TestTable3;
 
 public class PojoGenTest {
     @Test
-    public void assertPojoGeneratedAndExists() {
-        new TestTable1();
+    public void assertPojoGeneratedAndExists() throws NoSuchFieldException {
+        TestTable1 testTable1 = new TestTable1();
+        assertEquals(
+                "java.util.Date",
+                testTable1.getClass().getDeclaredField("testDate").getType().getName());
         new TestTable2();
         new TestTable3();
     }

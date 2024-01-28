@@ -11,6 +11,8 @@ public class GeneratorTarget {
     private final String targetPackage;
     private final String targetFolder;
     private final String baseDir;
+    private final String singleResultName;
+    private final GeneratorStrategy generatorStrategy;
 
     public Path getPath() {
         String pkg = getTargetPackage();

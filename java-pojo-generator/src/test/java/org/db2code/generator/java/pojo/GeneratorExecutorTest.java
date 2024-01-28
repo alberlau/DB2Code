@@ -70,9 +70,10 @@ class GeneratorExecutorTest {
                                         null,
                                         false)),
                         Arrays.asList("pojo.mustache"),
-                        new GeneratorTarget(TESTPKG, TARGET_FOLDER, dir),
+                        new GeneratorTarget(TESTPKG, TARGET_FOLDER, dir, null, null),
                         null,
                         DateImpl.UTIL_DATE,
+                        null,
                         false));
 
         File[] files = Paths.get(dir, TARGET_FOLDER, TESTPKG).toFile().listFiles();

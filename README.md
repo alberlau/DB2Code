@@ -99,10 +99,13 @@ Optionally if you need to attach generated code to your source code add this:
   - __exportFile__ file to export metadata, which later can be imported from that file, instead of fetching from DB
   - __importFile__ metadata file previously exported with exportFile, which can be used as source of metadata
 - __baseDir__ where to output generated source, can be ${project.baseDir}
+- __generatorStrategy__ how generator manages outputs, into single file or multiple per table files. Options: SINGLE_FILE or CLASS_PER_TABLE, default to CLASS_PER_TABLE.
+- __singleResultName__ the name of the output generated file if generatorStrategy is SINGLE_FILE. Otherwise ignored.
 - __targetFolder__ where to put sources under baseDir, can be target/generated-sources
 - __targetPackage__ what package should be used for generated classes
 - __ext__ extension for generated files, defaults to .java
 - __dateImpl__ what java date implementation should be used: UTIL_DATE or LOCAL_DATE
+- __typeMapFile__ type mapping file to use. Default is /type-mappings/java-type-map.properties. There is available dbml-type-map.properties file on same location, or you can define your own.
 - __includeGenerationInfo__ should info about generation be included? Defaults to false
 
 You can customize generation template, by providing __templates__ list:
@@ -112,7 +115,7 @@ You can customize generation template, by providing __templates__ list:
   </templates>
 ```
 
-Currently built-in templates are: __pojo.mustache__, __spring-data.mustache__.
+Currently built-in templates are: __pojo.mustache__, __spring-data.mustache__, __dbml.mustache__ .
 You can provide your own template:
 
 ```xml

@@ -1,0 +1,31 @@
+Project  {
+    database_type: 'H2'
+}
+Table TEST_SCHEMA.TEST_TABLE_1 {
+    SIMPLE_ID_1 integer
+    TEST_VARCHAR varchar
+    TEST_NUMERIC decimal
+    TEST_DATE date
+    SOME_BOOL boolean
+    TEST_DATETIME timestamp
+}
+Table TEST_SCHEMA.TEST_TABLE_2 {
+    SIMPLE_ID_2 integer
+    TEST_VARCHAR varchar
+    TEST_NUMERIC decimal
+    TEST_DATE date
+    TEST_DATETIME timestamp
+}
+Table TEST_SCHEMA.TEST_TABLE_3 {
+    SIMPLE_ID_1 integer
+    SIMPLE_ID_2 integer
+}
+Ref {
+    TEST_SCHEMA.TEST_TABLE_1.SIMPLE_ID_1 < TEST_SCHEMA.TEST_TABLE_2.SIMPLE_ID_2
+}
+Ref {
+    TEST_SCHEMA.TEST_TABLE_1.SIMPLE_ID_1 < TEST_SCHEMA.TEST_TABLE_3.SIMPLE_ID_1
+}
+Ref {
+    TEST_SCHEMA.TEST_TABLE_2.SIMPLE_ID_2 < TEST_SCHEMA.TEST_TABLE_3.SIMPLE_ID_2
+}

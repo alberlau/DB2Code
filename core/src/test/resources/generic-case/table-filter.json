@@ -129,5 +129,7 @@
       ]
     }
   ],
-  "procedures": []
+  "procedures": [],
+  "databaseProductName": "H2",
+  "databaseProductVersion": "2.2.224 (2023-09-17)"
 }

@@ -10,4 +10,6 @@ import lombok.ToString;
 public class RawDatabaseMetadata {
     private List<RawTable> tables = new ArrayList<>();
     private List<RawProcedure> procedures = new ArrayList<>();
+    private String databaseProductName;
+    private String databaseProductVersion;
 }

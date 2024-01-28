@@ -190,6 +190,33 @@
                             </templates>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>dbmlExecution</id>
+                        <goals>
+                            <goal>generatePojo</goal>
+                        </goals>
+                        <configuration>
+                            <jdbcUrl>jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;INIT=RUNSCRIPT FROM '${project.basedir}/init.sql'</jdbcUrl>
+                            <jdbcClassName>org.h2.Driver</jdbcClassName>
+                            <extractionParameters>
+                                <item>
+                                    <schemaPattern>TEST_SCHEMA</schemaPattern>
+                                    <catalog>TEST</catalog>
+                                    <tableNamePattern>%</tableNamePattern>
+                                </item>
+                            </extractionParameters>
+                            <baseDir>${project.basedir}</baseDir>
+                            <generatorStrategy>SINGLE_FILE</generatorStrategy>
+                            <targetFolder>target/classes</targetFolder>
+                            <targetPackage>test.dbml</targetPackage>
+                            <singleResultName>TEST</singleResultName>
+                            <typeMapFile>/type-mappings/dbml-type-map.properties</typeMapFile>
+                            <ext>.dbml</ext>
+                            <templates>
+                                <template>dbml.mustache</template>
+                            </templates>
+                        </configuration>
+                    </execution>
                 </executions>
                 <dependencies>
                     <dependency>
