@@ -4,7 +4,7 @@ Project {{targetPackage}} {
 {{#classes}}
 Table {{#rawTable.tableSchem}}{{rawTable.tableSchem}}.{{/rawTable.tableSchem}}{{rawTable.tableName}} {
     {{#properties}}
-    {{rawColumn.columnName}} {{javaType}}{{#id}}[primary key]{{/id}}
+    {{rawColumn.columnName}} {{propertyType}}{{#id}}[primary key]{{/id}}
     {{/properties}}
 }
 {{/classes}}

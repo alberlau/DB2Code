@@ -21,15 +21,15 @@ public class {{className}} {
     @jakarta.validation.constraints.NotNull{{/isNullable}}{{#size}}
 
     @jakarta.validation.constraints.Size(max = {{size}}){{/size}}
-    private {{javaType}} {{propertyName}};
+    private {{propertyType}} {{propertyName}};
     {{/properties}}
     {{#properties}}
 
-    public {{javaType}} get{{methodName}}() {
+    public {{propertyType}} get{{methodName}}() {
         return {{propertyName}};
     }
 
-    public void set{{methodName}}({{javaType}} {{propertyName}}) {
+    public void set{{methodName}}({{propertyType}} {{propertyName}}) {
         this.{{propertyName}} = {{propertyName}};
     }
 

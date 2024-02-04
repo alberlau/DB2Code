@@ -63,7 +63,7 @@ public class PropertyAdapter {
         return rawColumn;
     }
 
-    public String getJavaType() {
+    public String getPropertyType() {
         return sqlTypeMapper.getMappedType(rawColumn.getDataType());
     }
 
