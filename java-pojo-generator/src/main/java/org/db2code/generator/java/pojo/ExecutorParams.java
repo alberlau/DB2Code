@@ -14,5 +14,6 @@ public class ExecutorParams {
     private final GeneratorTarget generatorTarget;
     private final String ext;
     private final DateImpl dateImpl;
+    private final String typeMapFile;
     private final boolean includeGenerationInfo;
 }

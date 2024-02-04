@@ -1,0 +1,17 @@
+Project {{targetPackage}} {
+    database_type: '{{rawDatabaseMetadata.databaseProductName}}'
+}
+{{#classes}}
+Table {{#rawTable.tableSchem}}{{rawTable.tableSchem}}.{{/rawTable.tableSchem}}{{rawTable.tableName}} {
+    {{#properties}}
+    {{rawColumn.columnName}} {{propertyType}}{{#id}}[primary key]{{/id}}
+    {{/properties}}
+}
+{{/classes}}
+{{#rawDatabaseMetadata.tables}}
+{{#foreignKeys}}
+Ref {
+    {{#pktableSchem}}{{pktableSchem}}.{{/pktableSchem}}{{pktableName}}.{{pkcolumnName}} < {{#fktableSchem}}{{fktableSchem}}.{{/fktableSchem}}{{fktableName}}.{{fkcolumnName}}
+}
+{{/foreignKeys}}
+{{/rawDatabaseMetadata.tables}}

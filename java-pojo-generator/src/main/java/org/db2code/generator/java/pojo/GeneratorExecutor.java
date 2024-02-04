@@ -8,8 +8,7 @@ import org.db2code.extractors.DatabaseExtractionParameters;
 import org.db2code.extractors.ExtractionParameters;
 import org.db2code.extractors.MetadataFileExtractionParameters;
 import org.db2code.generator.java.pojo.adapter.ClassAdapter;
-import org.db2code.generator.java.pojo.adapter.DateImpl;
-import org.db2code.generator.java.pojo.adapter.JavaDatabaseAdapter;
+import org.db2code.generator.java.pojo.adapter.DatabaseAdapter;
 import org.db2code.rawmodel.RawDatabaseMetadata;
 
 @Slf4j
@@ -36,27 +35,46 @@ public class GeneratorExecutor {
                             if (metadata == null) {
                                 return;
                             }
-                            DateImpl dateImpl = params.getDateImpl();
-                            if (dateImpl == null) {
-                                dateImpl = DateImpl.UTIL_DATE;
-                            }
 
-                            new JavaDatabaseAdapter(
-                                            metadata,
-                                            params.getGeneratorTarget().getTargetPackage(),
-                                            dateImpl,
-                                            params.isIncludeGenerationInfo())
-                                    .getClasses()
-                                    .forEach(
-                                            javaClass ->
-                                                    params.getTemplates()
-                                                            .forEach(
-                                                                    template ->
-                                                                            generateSource(
-                                                                                    params,
-                                                                                    javaClass,
-                                                                                    template)));
+                            selectAndFollowGenerationStrategy(params, metadata);
                         });
+    }
+
+    private void selectAndFollowGenerationStrategy(
+            ExecutorParams params, RawDatabaseMetadata metadata) {
+        GeneratorStrategy generatorStrategy = params.getGeneratorTarget().getGeneratorStrategy();
+        if (generatorStrategy == null || generatorStrategy == GeneratorStrategy.CLASS_PER_TABLE) {
+            classPerTableSplitGeneration(params, metadata);
+        } else if (generatorStrategy == GeneratorStrategy.SINGLE_FILE) {
+            singleFileGeneration(params, metadata);
+        } else {
+            throw new RuntimeException("Unsupported generation strategy: " + generatorStrategy);
+        }
+    }
+
+    private void singleFileGeneration(ExecutorParams params, RawDatabaseMetadata metadata) {
+        params.getTemplates()
+                .forEach(
+                        template -> {
+                            String result =
+                                    generator.generate(
+                                            new DatabaseAdapter(metadata, params), template);
+                            classWriter.write(
+                                    params,
+                                    params.getGeneratorTarget().getSingleResultName(),
+                                    result);
+                        });
+    }
+
+    private void classPerTableSplitGeneration(ExecutorParams params, RawDatabaseMetadata metadata) {
+        new DatabaseAdapter(metadata, params)
+                .getClasses()
+                .forEach(
+                        claz ->
+                                params.getTemplates()
+                                        .forEach(
+                                                template ->
+                                                        generateSource(params, claz, template)));
     }
 
     private RawDatabaseMetadata resolveMetadata(ExtractionParameters param) {
