@@ -38,8 +38,18 @@ public class SqlTypeMapper {
     String getMappedType(int dataType) {
         String val = typeMap.getProperty(String.valueOf(dataType));
         if (val == null) {
-            JDBCType jdbcType = JDBCType.valueOf(dataType);
-            val = typeMap.getProperty(jdbcType.name());
+            JDBCType jdbcType = null;
+            try {
+                // JDBC drivers may provide their own, for ex MSSQL -155
+                jdbcType = JDBCType.valueOf(dataType);
+            } catch (Exception e) {
+                log.warn("Failed to convert into JdbcType enum, value: " + dataType);
+            }
+            if (jdbcType == null) {
+                val = typeMap.getProperty("default");
+            } else {
+                val = typeMap.getProperty(jdbcType.name());
+            }
             if (val == null) {
                 val = typeMap.getProperty("default");
             }
@@ -48,8 +58,6 @@ public class SqlTypeMapper {
                         "Type mapping not found for jdbc dataType "
                                 + dataType
                                 + " and no default was provided.");
-            } else {
-                log.warn("Unhandled SQL type: " + dataType + " defaulting to " + val);
             }
         }
 
