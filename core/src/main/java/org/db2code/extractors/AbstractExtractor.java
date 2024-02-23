@@ -12,6 +12,9 @@ import org.db2code.rawmodel.AbstractRawItem;
 @Slf4j
 public abstract class AbstractExtractor<T extends ExtractionParameters> {
     protected void setProperty(Object object, Object mdValue, String propName) {
+        if (mdValue instanceof Number) {
+            mdValue = ((Number) mdValue).intValue();
+        }
         try {
             PropertyUtils.setProperty(object, propName, mdValue);
         } catch (Exception e) {
