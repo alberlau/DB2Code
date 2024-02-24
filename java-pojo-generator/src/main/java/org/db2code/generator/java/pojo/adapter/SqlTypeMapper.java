@@ -1,6 +1,8 @@
 package org.db2code.generator.java.pojo.adapter;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.JDBCType;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,11 +29,33 @@ public class SqlTypeMapper {
         funcMapping.put("resolveTimeImpl()", resolveTimeImpl());
     }
 
-    private void initTypeMap(String typeMapFile) {
-        try {
-            typeMap.load(SqlTypeMapper.class.getResourceAsStream(typeMapFile));
+    private void initTypeMapFromResourceStream(String typeMapFile) {
+        try (InputStream stream = SqlTypeMapper.class.getResourceAsStream(typeMapFile)) {
+            if (stream == null) {
+                return;
+            }
+            typeMap.load(stream);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            log.warn("TypeMap was unable to initialize from classpath.");
+        }
+    }
+
+    private void initTypeMapFromFileStream(String typeMapFile) {
+        try (InputStream stream = new FileInputStream(typeMapFile)) {
+            typeMap.load(stream);
+        } catch (IOException e) {
+            log.warn("TypeMap was unable to initialize from classpath.");
+        }
+    }
+
+    private void initTypeMap(String typeMapFile) {
+        initTypeMapFromResourceStream(typeMapFile);
+        if (typeMap.isEmpty()) {
+            initTypeMapFromFileStream(typeMapFile);
+        }
+        if (typeMap.isEmpty()) {
+            throw new RuntimeException(
+                    "Was unable to find TypeMap nor in classpath nor in file system.");
         }
     }
 
