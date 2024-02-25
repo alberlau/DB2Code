@@ -1,5 +1,7 @@
 package org.db2code.generator.java.pojo.adapter;
 
+import static org.apache.commons.collections.CollectionUtils.isEmpty;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -39,6 +41,7 @@ public class DatabaseAdapter {
     private List<ClassAdapter> makeTableClassList() {
         List<ClassAdapter> tableClassList =
                 rawDatabaseMetadata.getTables().stream()
+                        .filter(rawTable -> shouldGenerate(rawTable))
                         .map(
                                 (RawTable rawTable) ->
                                         new DefaultClassAdapter(
@@ -49,6 +52,15 @@ public class DatabaseAdapter {
                                                 params.isIncludeGenerationInfo()))
                         .collect(Collectors.toList());
         return tableClassList;
+    }
+
+    private boolean shouldGenerate(RawTable rawTable) {
+        String tableName = rawTable.getTableName();
+        Collection<String> doNotGenerateTables = params.getDoNotGenerateTables();
+        if (isEmpty(doNotGenerateTables)) {
+            return true;
+        }
+        return doNotGenerateTables.stream().noneMatch(tableName::matches);
     }
 
     public RawDatabaseMetadata getRawDatabaseMetadata() {

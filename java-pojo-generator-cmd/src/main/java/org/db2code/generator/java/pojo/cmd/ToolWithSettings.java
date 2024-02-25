@@ -7,8 +7,8 @@ import org.db2code.generator.java.core.Item;
 import org.db2code.generator.java.pojo.GeneratorStrategy;
 import org.db2code.generator.java.pojo.adapter.DateImpl;
 
-@SuppressWarnings("PMD.DataClass")
 @Data
+@SuppressWarnings({"PMD.DataClass", "PMD.TooManyFields"})
 public class ToolWithSettings implements AbstractTool {
 
     private boolean includeGenerationInfo;
@@ -18,6 +18,7 @@ public class ToolWithSettings implements AbstractTool {
     private String jdbcUser;
     private String jdbcPassword;
     private List<String> templates;
+    private List<String> doNotGenerateTables;
     private String targetPackage;
     private String targetFolder;
     private String baseDir;

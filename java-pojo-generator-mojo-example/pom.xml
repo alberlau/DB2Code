@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.db2code</groupId>
         <artifactId>DB2Code</artifactId>
-        <version>1.3.3</version>
+        <version>1.3.4</version>
     </parent>
 
     <artifactId>java-pojo-generator-mojo-example</artifactId>
@@ -60,7 +60,7 @@
             <plugin>
                 <groupId>org.db2code</groupId>
                 <artifactId>java-pojo-generator-mojo</artifactId>
-                <version>1.3.3</version>
+                <version>1.3.4</version>
                 <executions>
                     <execution>
                         <id>exportMetadata</id>
@@ -117,6 +117,29 @@
                             <targetFolder>target/generated-sources</targetFolder>
                             <targetPackage>pojo.testpkg</targetPackage>
                             <!-- Default pojo.mustache is invoked -->
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>pojoExecutionDoNotMatchTable</id>
+                        <goals>
+                            <goal>generatePojo</goal>
+                        </goals>
+                        <configuration>
+                            <includeGenerationInfo>true</includeGenerationInfo>
+                            <jdbcUrl>jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;INIT=RUNSCRIPT FROM '${project.basedir}/init.sql'</jdbcUrl>
+                            <jdbcClassName>org.h2.Driver</jdbcClassName>
+                            <extractionParameters>
+                                <item>
+                                    <schemaPattern>TEST_SCHEMA</schemaPattern>
+                                    <catalog>TEST</catalog>
+                                </item>
+                            </extractionParameters>
+                            <baseDir>${project.basedir}</baseDir>
+                            <targetFolder>target/generated-sources</targetFolder>
+                            <targetPackage>pojo.testpkg.doNotMatch</targetPackage>
+                            <doNotGenerateTables>
+                                <doNotGenerateTable>.+3</doNotGenerateTable>
+                            </doNotGenerateTables>
                         </configuration>
                     </execution>
                     <execution>

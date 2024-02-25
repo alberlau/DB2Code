@@ -49,6 +49,7 @@ public interface AbstractTool {
                     new ExecutorParams(
                             mapExtractionParameters(),
                             genTemplates,
+                            getDoNotGenerateTables(),
                             new GeneratorTarget(
                                     getTargetPackage(),
                                     getTargetFolder(),
@@ -125,6 +126,8 @@ public interface AbstractTool {
     String getJdbcPassword();
 
     List<String> getTemplates();
+
+    List<String> getDoNotGenerateTables();
 
     String getTargetPackage();
 

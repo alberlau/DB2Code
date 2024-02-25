@@ -9,7 +9,7 @@ import org.db2code.generator.java.pojo.GeneratorStrategy;
 import org.db2code.generator.java.pojo.adapter.DateImpl;
 
 @Mojo(name = "generatePojo", defaultPhase = LifecyclePhase.GENERATE_SOURCES)
-@SuppressWarnings("PMD.DataClass")
+@SuppressWarnings({"PMD.DataClass", "PMD.TooManyFields"})
 public class PojoMojo extends AbstractMojo implements AbstractTool {
     @Parameter private String jdbcClassName;
 
@@ -22,6 +22,7 @@ public class PojoMojo extends AbstractMojo implements AbstractTool {
     @Parameter private List<Item> extractionParameters;
 
     @Parameter private List<String> templates;
+    @Parameter private List<String> doNotGenerateTables;
 
     @Parameter private String targetPackage;
 
@@ -73,6 +74,11 @@ public class PojoMojo extends AbstractMojo implements AbstractTool {
     @Override
     public List<String> getTemplates() {
         return templates;
+    }
+
+    @Override
+    public List<String> getDoNotGenerateTables() {
+        return doNotGenerateTables;
     }
 
     @Override

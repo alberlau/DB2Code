@@ -70,6 +70,7 @@ class GeneratorExecutorTest {
                                         null,
                                         false)),
                         Arrays.asList("pojo.mustache"),
+                        null,
                         new GeneratorTarget(TESTPKG, TARGET_FOLDER, dir, null, null),
                         null,
                         DateImpl.UTIL_DATE,
