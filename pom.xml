@@ -14,7 +14,7 @@
 
     <groupId>org.db2code</groupId>
     <artifactId>DB2Code</artifactId>
-    <version>1.3.3</version>
+    <version>1.3.4</version>
     <packaging>pom</packaging>
     <name>DB2Code - code generator from database metadata</name>
     <description>Puts database metadata into intermediate objects and invokes mustache template to generate code,
