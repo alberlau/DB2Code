@@ -133,7 +133,7 @@
                         <include>**/*.java</include>
                     </includes>
                     <excludes>
-                        <exclude>**/testpkg/*.java</exclude>
+                        <exclude>**/testpkg/**/*.java</exclude>
                         <exclude>**/test/sp/*.java</exclude>
                     </excludes>
                 </configuration>

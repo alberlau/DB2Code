@@ -107,6 +107,7 @@ Optionally if you need to attach generated code to your source code add this:
 - __dateImpl__ what java date implementation should be used: UTIL_DATE or LOCAL_DATE
 - __typeMapFile__ type mapping file to use. Default is /type-mappings/java-type-map.properties. There is available dbml-type-map.properties file on same location, or you can define your own.
 - __includeGenerationInfo__ should info about generation be included? Defaults to false
+_ __doNotGenerateTables__ list of tables to be not generated. Can be regexp.
 
 You can customize generation template, by providing __templates__ list:
 ```xml
@@ -124,6 +125,12 @@ You can provide your own template:
   </templates>
 ```
 
+Do not generate example, tables ending 3, will not be generated:
+```xml
+  <doNotGenerateTables>
+      <doNotGenerateTable>.+3</doNotGenerateTable>
+  </doNotGenerateTables>
+```
 
 You can provide multiple executions with different id's to select from different schemas, providing different templates or some other config options.
 

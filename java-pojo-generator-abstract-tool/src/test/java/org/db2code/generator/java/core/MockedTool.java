@@ -11,6 +11,7 @@ public class MockedTool implements AbstractTool {
     private String jdbcUser;
     private String jdbcPassword;
     private List<String> templates;
+    private List<String> doNotGenerateTables;
     private String targetPackage;
     private String targetFolder;
     private String baseDir;
@@ -49,6 +50,11 @@ public class MockedTool implements AbstractTool {
     @Override
     public List<String> getTemplates() {
         return templates;
+    }
+
+    @Override
+    public List<String> getDoNotGenerateTables() {
+        return doNotGenerateTables;
     }
 
     @Override

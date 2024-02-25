@@ -1,6 +1,7 @@
 package testpkg;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
@@ -38,5 +39,17 @@ public class PojoGenTest {
     @Test
     public void testGeneratedJson() throws IOException {
         new ObjectMapper().readTree(PojoGenTest.class.getResourceAsStream("/TEST_SCHEMA.json"));
+    }
+
+    @Test
+    public void testDoNotGenerateWorks() throws ClassNotFoundException {
+        Class.forName("pojo.testpkg.doNotMatch.TestTable1");
+        Class.forName("pojo.testpkg.doNotMatch.TestTable2");
+        try {
+            Class.forName("pojo.testpkg.doNotMatch.TestTable3");
+            fail("Class should not be generated.");
+        } catch (ClassNotFoundException e) {
+            assertEquals("pojo.testpkg.doNotMatch.TestTable3", e.getMessage());
+        }
     }
 }

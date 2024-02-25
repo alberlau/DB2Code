@@ -11,6 +11,7 @@ import org.db2code.generator.java.pojo.adapter.DateImpl;
 public class ExecutorParams {
     private final Collection<ExtractionParameters> extractionParameters;
     private final Collection<String> templates;
+    private final Collection<String> doNotGenerateTables;
     private final GeneratorTarget generatorTarget;
     private final String ext;
     private final DateImpl dateImpl;
