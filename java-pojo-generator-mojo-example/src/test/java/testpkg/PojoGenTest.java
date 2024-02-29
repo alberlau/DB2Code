@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import java.io.IOException;
 import org.junit.jupiter.api.Test;
 import pojo.testpkg.TestTable1;
@@ -38,7 +39,8 @@ public class PojoGenTest {
 
     @Test
     public void testGeneratedJson() throws IOException {
-        new ObjectMapper().readTree(PojoGenTest.class.getResourceAsStream("/TEST_SCHEMA.json"));
+        new ObjectMapper(new YAMLFactory())
+                .readTree(PojoGenTest.class.getResourceAsStream("/TEST_SCHEMA.yml"));
     }
 
     @Test
