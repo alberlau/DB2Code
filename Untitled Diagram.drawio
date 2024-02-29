@@ -1,9 +1,54 @@
-<mxfile host="app.diagrams.net" modified="2024-02-29T16:44:25.359Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36" version="24.0.0" etag="2_07A9Mf62P-iuemMl4_" type="github">
+<mxfile host="app.diagrams.net" modified="2024-02-29T16:57:32.740Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36" etag="ihdMBwnavdMQ4ckTFI3S" version="24.0.0" type="github">
   <diagram name="Page-1" id="nPCcnV1-Jq13Tpg0hsze">
-    <mxGraphModel>
+    <mxGraphModel dx="1050" dy="557" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="TZronD_LeTqLBZwLPRDB-1" value="DB" style="shape=datastore;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="50" y="200" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="TZronD_LeTqLBZwLPRDB-2" value="To" style="shape=singleArrow;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="110" y="200" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="TZronD_LeTqLBZwLPRDB-3" value="Metadata" style="shape=document;whiteSpace=wrap;html=1;boundedLbl=1;fillColor=#fad9d5;strokeColor=#ae4132;" vertex="1" parent="1">
+          <mxGeometry x="210" y="200" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="TZronD_LeTqLBZwLPRDB-4" value="Metadata" style="shape=document;whiteSpace=wrap;html=1;boundedLbl=1;fillColor=#fad9d5;strokeColor=#ae4132;" vertex="1" parent="1">
+          <mxGeometry x="130" y="320" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="TZronD_LeTqLBZwLPRDB-8" value="To" style="shape=singleArrow;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="250" y="320" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="TZronD_LeTqLBZwLPRDB-10" value="Context" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#b1ddf0;strokeColor=#10739e;" vertex="1" parent="1">
+          <mxGeometry x="350" y="310" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="TZronD_LeTqLBZwLPRDB-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="TZronD_LeTqLBZwLPRDB-11" target="TZronD_LeTqLBZwLPRDB-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TZronD_LeTqLBZwLPRDB-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="TZronD_LeTqLBZwLPRDB-11" target="TZronD_LeTqLBZwLPRDB-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TZronD_LeTqLBZwLPRDB-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="TZronD_LeTqLBZwLPRDB-11" target="TZronD_LeTqLBZwLPRDB-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TZronD_LeTqLBZwLPRDB-11" value="Mustache" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#b1ddf0;strokeColor=#10739e;" vertex="1" parent="1">
+          <mxGeometry x="350" y="130" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="TZronD_LeTqLBZwLPRDB-12" value="Reads" style="shape=singleArrow;direction=south;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="360" y="210" width="60" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="TZronD_LeTqLBZwLPRDB-13" value="Java" style="shape=document;whiteSpace=wrap;html=1;boundedLbl=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="510" y="130" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="TZronD_LeTqLBZwLPRDB-14" value="dbml" style="shape=document;whiteSpace=wrap;html=1;boundedLbl=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="510" y="230" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="TZronD_LeTqLBZwLPRDB-15" value="Any custom generation" style="shape=document;whiteSpace=wrap;html=1;boundedLbl=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="510" y="340" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="TZronD_LeTqLBZwLPRDB-19" value="Maven, cmd, &lt;strike&gt;gradle&lt;/strike&gt;" style="swimlane;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#666666;dashed=1;shadow=1;textShadow=1;fontColor=#333333;labelBackgroundColor=default;" vertex="1" parent="1">
+          <mxGeometry x="120" y="90" width="330" height="330" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
