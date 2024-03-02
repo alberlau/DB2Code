@@ -4,6 +4,7 @@
 
 DB2Code is a tool designed to facilitate the generation of files from JDBC Metadata. This project streamlines the process of loading metadata into objects and then utilizing these objects within Mustache templates to generate the desired output. It's an ideal solution for developers looking to automate and simplify their database related code generation processes.
 The default use case as in below diagram:
+
 ![db2code](https://github.com/alberlau/DB2Code/blob/master/BasicToolWorkflow.png)
 
 ### Prerequisites
@@ -109,8 +110,8 @@ Optionally if you need to attach generated code to your source code add this:
 - __dateImpl__ what java date implementation should be used: UTIL_DATE or LOCAL_DATE
 - __typeMapFile__ type mapping file to use. Default is /type-mappings/java-type-map.properties. There is available dbml-type-map.properties file on same location, or you can define your own.
 - __includeGenerationInfo__ should info about generation be included? Defaults to false
-_ __doNotGenerateTables__ list of tables to be not generated. Can be regexp.
-- 
+- __doNotGenerateTables__ list of tables to be not generated. Can be regexp.
+ 
 
 You can customize generation template, by providing __templates__ list:
 ```xml
