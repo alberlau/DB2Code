@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="index, follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DB2Code is an innovative tool designed to simplify the process of generating files from JDBC metadata, making database management and code generation more efficient."> <!-- Meta description -->
+    <title>DB2code - generate files from JDBC Metadata with ease.</title>
+    <link rel="icon" href="./db2code.png" type="image/x-icon">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.0/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    
+    <style>
+        html {
+            background-color: black;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: white;
+        }
+        #btn-link {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            
+            color: white;
+            text-decoration: none;
+        }
+        p {
+            font-family: 'Poppins', sans-serif;
+            color: white;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            color: white;
+        }
+        header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            min-height: 100vh;
+        }
+        footer {
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+        a {
+            color: white;
+        }
+        .additional {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            min-height: 100vh;
+        }
+        .additional #btn-link {
+            padding: 15px 30px;
+            background-color: #7B1FA2;
+            border-radius: 7px;
+            transition: background-color 0.3s ease;
+        }
+        .additional #btn-link:hover {
+            background-color: #9C27B0;
+        }
+        .additional img {
+            height: 250px;
+        }
+        iframe {
+            border: none;
+        }
+
+        .hero-img{
+            border-radius: 20%;
+        }
+
+        #markdown-content {
+            margin-top: 30px;
+            max-width: 90%;
+            padding: 20px;
+            text-align: left;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(1.9px);
+            -webkit-backdrop-filter: blur(1.9px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 10px;
+            overflow-wrap: break-word;
+        }
+
+        #container{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Places the container behind all content */
+        }
+
+    </style>
+</head>
+<body>
+    <br><br>
+    <header>
+
+        <div class="additional">
+            <img class="hero-img" loading="lazy" src="https://github.com/alberlau/DB2Code/blob/master/db2code.png?raw=true" alt="DB2Code Logo" description="DB2Code Logo">
+            <h1>DB2Code</h1>
+            <p>Generate files from JDBC Metadata with ease.</p>
+            <a id="btn-link" target="_blank" href="https://github.com/alberlau/DB2Code"><i style="font-size:24px; padding-right: 10px;" class="fa fa-github"></i> Check it out</a>
+            
+            <iframe src="https://ghbtns.com/github-btn.html?user=alberlau&repo=DB2Code&type=star&count=true&size=large" frameborder="0" scrolling="0" width="170" height="30" title="GitHub" style="padding-top: 20px;"></iframe>
+            <br>
+            <div id="markdown-content">Loading README...</div>
+
+
+        </div>
+        <div id="container"></div>
+
+    </header>
+    <footer>
+        Page made by Augustinas Stasiškis
+    </footer>
+    <script>
+        function loadMarkdownFile(filePath) {
+            fetch(filePath)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
+                .then(text => {
+                    // Configure marked to use highlight.js for code blocks
+                    marked.setOptions({
+                        highlight: function(code, lang) {
+                            const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+                            return hljs.highlight(code, { language }).value;
+                        },
+                        langPrefix: 'hljs language-', 
+                    });
+    
+                    // Replace 'https://github.com/alberlau/DB2Code/raw/master/' with your actual raw content URL
+                    const githubRepoUrl = 'https://github.com/alberlau/DB2Code/raw/master/';
+                    text = text.replace(/!\[([^\]]*)\]\((.*?)\)/g, (match, alt, src) => {
+                        if (!src.startsWith('http')) { // Check if the src is a relative URL
+                            src = githubRepoUrl + src; // Convert it to an absolute URL
+                        }
+                        return `![${alt}](${src})`;
+                    });
+    
+                    const convertedHtml = marked.parse(text);
+                    document.getElementById('markdown-content').innerHTML = convertedHtml;
+                    document.querySelectorAll('pre code').forEach((block) => {
+                        hljs.highlightBlock(block);
+                    });
+                })
+                .catch(err => {
+                    console.error('Failed to load the Markdown file:', err);
+                    document.getElementById('markdown-content').innerHTML = '<p>Error loading content.</p>';
+                });
+        }
+    
+        window.onload = function() {
+            loadMarkdownFile('README.md'); 
+        };
+    </script>
+    
+  <!---  <script>
+        let scene, camera, renderer;
+        let rotationSpeed = 0.001; // Default slow rotation speed
+        let lastScrollTime = 0; // To track the last scroll event time
+    
+        function init() {
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x000000);
+    
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 30;
+    
+            renderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.getElementById('container').appendChild(renderer.domElement);
+    
+            createStars(1000);
+    
+            window.addEventListener('resize', onWindowResize, false);
+            window.addEventListener('scroll', onWindowScroll, false);
+    
+            animate();
+        }
+    
+        function createStars(count) {
+            const geometry = new THREE.SphereGeometry(0.1, 6, 6);
+            const material = new THREE.MeshBasicMaterial({color: 0xffffff});
+        
+            for (let i = 0; i < count; i++) {
+                const star = new THREE.Mesh(geometry, material);
+        
+                const [x, y, z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(200));
+        
+                star.position.set(x, y, z);
+                scene.add(star);
+            }
+        }
+    
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+    
+        function onWindowScroll() {
+            const fasterRotation = 0.005;
+            rotationSpeed = fasterRotation;
+    
+            clearTimeout(lastScrollTime);
+            lastScrollTime = setTimeout(() => {
+                rotationSpeed = 0.001;
+            }, 150);
+        }
+    
+        function animate() {
+            requestAnimationFrame(animate);
+    
+            // Apply upward rotation
+            camera.rotation.x += rotationSpeed;
+    
+            renderer.render(scene, camera);
+        }
+    
+        init();
+    </script>
+    -->
+    
+    
+</body>
+</html>
