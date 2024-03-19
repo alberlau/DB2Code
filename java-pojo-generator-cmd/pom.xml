@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.db2code</groupId>
         <artifactId>DB2Code</artifactId>
-        <version>1.3.5</version>
+        <version>1.3.6</version>
     </parent>
 
     <artifactId>java-pojo-generator-cmd</artifactId>
@@ -21,7 +21,7 @@
         <dependency>
             <groupId>org.db2code</groupId>
             <artifactId>java-pojo-generator-abstract-tool</artifactId>
-            <version>1.3.5</version>
+            <version>1.3.6</version>
         </dependency>
 
         <dependency>
