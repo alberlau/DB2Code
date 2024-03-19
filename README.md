@@ -189,3 +189,125 @@ Then metadata file can be imported with such execution:
       </configuration>
   </execution>
 ```
+
+## Reference of attributes available in model
+Bellow is reference of attributes which can be used in mustache templates.
+Most of them is converted directly from JDBC DatabaseMetadata available result sets.
+For example TABLE_SCHEM in metadata result set is available as tableSchem attribute to be used in mustache template.
+
+### Model reference, common properties
+  - Boolean isLast common property for objects, which can be contained in list, to indicate if it is last 
+  - String tableCat - common for raw jdbc objects
+  - String tableSchem - common for raw jdbc objects
+  - String tableName - common for raw jdbc objects
+#### For CLASS_PER_TABLE strategy
+- package
+- className
+- properties
+  - rawColumn - Data grabbed from ResultSetMetadata.getColumns Consult JDBC javadoc: https://docs.oracle.com/javase/8/docs/api/java/sql/DatabaseMetaData.html#getColumns-java.lang.String-java.lang.String-java.lang.String-java.lang.String-
+        - tableCat, tableSchem, tableName
+        - String columnName
+        - Integer dataType
+        - String typeName
+        - Integer columnSize
+        - Integer decimalDigits
+        - Integer numPrecRadix
+        - Integer nullable
+        - String remarks
+        - String columnDef
+        - Integer sqlDataType
+        - Integer sqlDatetimeSub
+        - Integer charOctetLength
+        - Integer ordinalPosition
+        - String isNullable
+  - propertyType as resolved using typeMapFile configuration
+  - propertyName
+  - methodName
+  - isId
+  - isNullable
+  - size
+- generationInfo
+- rawTable
+  - tableCat, tableSchem, tableName, isLast
+  - String tableType
+  - String remarks
+  - String typeCat
+  - String typeSchem
+  - String typeName
+  - String selfReferencingColName
+  - String refGeneration
+  - Collection<RawColumn> columns
+    - see properties.rawColumn above
+  - Collection<RawPrimaryKey> primaryKey
+    - tableCat, tableSchem, tableName, isLast
+      - columnName
+      - keySeq
+      - pkName
+  - Collection<RawForeignKey> foreignKeys
+    - String pktableCat
+    - String pktableSchem
+    - String pktableName
+    - String pkcolumnName
+    - String fktableCat
+    - String fktableSchem
+    - String fktableName
+    - String fkcolumnName
+    - int keySeq
+    - Integer updateRule
+    - Integer deleteRule
+    - String fkName
+    - String pkName
+    - Integer deferrability
+    - Boolean isLast
+- rawProcedure in case of procedure
+  - procedureCat
+  - procedureSchem
+  - procedureName
+  - remarks
+  - procedureType
+  - specificName
+  - isLast
+  - parameters
+    - rawParameter
+      - procedureCat
+      - procedureSchem
+      - procedureName
+      - isLast
+      - columnName
+      - columnType
+      - dataType
+      - typeName
+      - precision
+      - length
+      - scale
+      - radix
+      - nullable
+      - remarks
+      - columnDef
+      - charOctetLength
+      - ordinalPosition
+      - isNullable
+      - specificName
+      - sqlDataType
+      - sqlDatetimeSub
+    - position
+    - name , adapted, camelcase
+    - type , as resolved by type mapper
+    - isInput as per jdbc COLUMN_TYPE 1 OR 2
+    - isOutput as per jdbc COLUMN_TYPE 2 OR 3
+    - isInputOutput  as per jdbc COLUMN_TYPE 3
+    - isReturn as per jdbc COLUMN_TYPE 4
+    - isResult as per jdbc COLUMN_TYPE 5
+    - isLast
+- parameters in case of procedure
+- singleParameterReturn , parameter  in case of procedure
+- inputParameters  in case of procedure
+- 
+#### For SINGLE_FILE strategy
+- targetPackage
+- classes - see above all CLASS_PER_TABLE object is exposed
+- rawDatabaseMetadata
+  - tables , list, see rawTable
+  - procedures , list of procedures extracted, see above what is marked: "in case of procedure" 
+  - databaseProductName
+  - databaseProductVersion
