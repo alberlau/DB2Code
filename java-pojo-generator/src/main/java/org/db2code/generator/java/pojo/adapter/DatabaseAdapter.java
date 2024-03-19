@@ -66,4 +66,8 @@ public class DatabaseAdapter {
     public RawDatabaseMetadata getRawDatabaseMetadata() {
         return rawDatabaseMetadata;
     }
+
+    public ExecutorParams getParams() {
+        return params;
+    }
 }

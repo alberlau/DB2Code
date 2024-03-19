@@ -311,3 +311,4 @@ For example TABLE_SCHEM in metadata result set is available as tableSchem attrib
   - procedures , list of procedures extracted, see above what is marked: "in case of procedure" 
   - databaseProductName
   - databaseProductVersion
+- params  - config params passed, see ExecutorParams class for all
