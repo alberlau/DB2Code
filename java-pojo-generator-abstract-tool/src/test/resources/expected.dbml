@@ -1,4 +1,4 @@
-Project  {
+Project test.dbml {
     database_type: 'H2'
 }
 Table TEST_SCHEMA.TEST_TABLE_1 {
