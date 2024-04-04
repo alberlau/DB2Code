@@ -19,6 +19,9 @@ You can use DB2Code in two ways at the moment.
 1. As command line tool
 2. As Maven plugin
 
+#### GPT bot
+Consult GPT bot about usage: https://chat.openai.com/g/g-esRxvHhLr-dbtocode-gpt
+
 #### Using as command line tool
 Look into distr directory.
 Follow README.md in it
