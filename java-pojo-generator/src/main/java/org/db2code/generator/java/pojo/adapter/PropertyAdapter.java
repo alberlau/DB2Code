@@ -79,6 +79,18 @@ public class PropertyAdapter {
         return primaryKeyColumns.contains(rawColumn.getColumnName());
     }
 
+    public boolean getIsNameEqualsId() {
+        return rawColumn.getColumnName().equalsIgnoreCase("ID");
+    }
+
+    public Boolean getIsInView() {
+        return rawTable.getTableType().equalsIgnoreCase("VIEW");
+    }
+
+    public Boolean getIsInTable() {
+        return rawTable.getTableType().equalsIgnoreCase("TABLE");
+    }
+
     public Boolean getIsNullable() {
         return "YES".equals(rawColumn.getIsNullable())
                 ? Boolean.TRUE
