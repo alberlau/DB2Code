@@ -35,7 +35,7 @@ Modify your pom.xml as bellow and adjust necessary parameters:
             <plugin>
                 <groupId>org.db2code</groupId>
                 <artifactId>java-pojo-generator-mojo</artifactId>
-                <version>1.3.6</version>
+                <version>1.3.7</version>
                 <configuration>
                     <jdbcUrl>jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;INIT=RUNSCRIPT FROM '${project.basedir}/init.sql'</jdbcUrl>
                     <jdbcClassName>org.h2.Driver</jdbcClassName>
@@ -206,23 +206,28 @@ For example TABLE_SCHEM in metadata result set is available as tableSchem attrib
 #### For CLASS_PER_TABLE strategy
 - package
 - className
+- isTable
+- isView
 - properties
+  - isInTable
+  - isInView
+  - isNameEqualsId
   - rawColumn - Data grabbed from ResultSetMetadata.getColumns Consult JDBC javadoc: https://docs.oracle.com/javase/8/docs/api/java/sql/DatabaseMetaData.html#getColumns-java.lang.String-java.lang.String-java.lang.String-java.lang.String-
-        - tableCat, tableSchem, tableName
-        - String columnName
-        - Integer dataType
-        - String typeName
-        - Integer columnSize
-        - Integer decimalDigits
-        - Integer numPrecRadix
-        - Integer nullable
-        - String remarks
-        - String columnDef
-        - Integer sqlDataType
-        - Integer sqlDatetimeSub
-        - Integer charOctetLength
-        - Integer ordinalPosition
-        - String isNullable
+    - tableCat, tableSchem, tableName
+    - String columnName
+    - Integer dataType
+    - String typeName
+    - Integer columnSize
+    - Integer decimalDigits
+    - Integer numPrecRadix
+    - Integer nullable
+    - String remarks
+    - String columnDef
+    - Integer sqlDataType
+    - Integer sqlDatetimeSub
+    - Integer charOctetLength
+    - Integer ordinalPosition
+    - String isNullable
   - propertyType as resolved using typeMapFile configuration
   - propertyName
   - methodName
@@ -305,7 +310,7 @@ For example TABLE_SCHEM in metadata result set is available as tableSchem attrib
 - parameters in case of procedure
 - singleParameterReturn , parameter  in case of procedure
 - inputParameters  in case of procedure
-- 
+
 #### For SINGLE_FILE strategy
 - targetPackage
 - classes - see above all CLASS_PER_TABLE object is exposed

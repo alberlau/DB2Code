@@ -70,6 +70,14 @@ public class DefaultClassAdapter implements ClassAdapter {
         return targetPackage;
     }
 
+    public Boolean getIsView() {
+        return rawTable.getTableType().equalsIgnoreCase("VIEW");
+    }
+
+    public Boolean getIsTable() {
+        return rawTable.getTableType().equalsIgnoreCase("TABLE");
+    }
+
     public Collection<PropertyAdapter> getProperties() {
         return properties;
     }
