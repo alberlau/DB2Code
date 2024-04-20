@@ -54,6 +54,11 @@ public class ProcedureAdapter implements ClassAdapter {
         }
     }
 
+    @Override
+    public void setLast(boolean last) {
+        this.rawProcedure.setIsLast(last);
+    }
+
     public ProcedureParameterAdapter getSingleParameterReturn() {
         List<ProcedureParameterAdapter> params =
                 getParameters().stream()

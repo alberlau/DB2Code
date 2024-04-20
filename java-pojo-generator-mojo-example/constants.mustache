@@ -1,0 +1,15 @@
+package {{params.generatorTarget.targetPackage}};
+
+public enum {{params.generatorTarget.singleResultName}} {
+    {{#classes}}{{#properties}}
+    {{className}}${{propertyName}}("{{propertyName}}"){{^rawColumn.isLast}},{{/rawColumn.isLast}}
+{{/properties}}{{^rawTable.isLast}},{{/rawTable.isLast}}{{/classes}};
+
+    private final String value;
+    {{params.generatorTarget.singleResultName}}(String value) {
+        this.value = value;
+    }
+    public String getValue() {
+        return value;
+    }
+}
