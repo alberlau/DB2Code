@@ -21,6 +21,8 @@ public class MockedTool implements AbstractTool {
     private GeneratorStrategy generatorStrategy;
     private String singleResultName;
     private String typeMapFile;
+    private String prefix;
+    private String suffix;
 
     @Override
     public List<Item> getExtractionParameters() {
@@ -100,6 +102,16 @@ public class MockedTool implements AbstractTool {
     @Override
     public String getTypeMapFile() {
         return typeMapFile;
+    }
+
+    @Override
+    public String getPrefix() {
+        return prefix;
+    }
+
+    @Override
+    public String getSuffix() {
+        return suffix;
     }
 
     public void setExtractionParameters(List<Item> extractionParameters) {

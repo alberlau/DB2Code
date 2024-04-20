@@ -114,6 +114,8 @@ Optionally if you need to attach generated code to your source code add this:
 - __typeMapFile__ type mapping file to use. Default is /type-mappings/java-type-map.properties. There is available dbml-type-map.properties file on same location, or you can define your own.
 - __includeGenerationInfo__ should info about generation be included? Defaults to false
 - __doNotGenerateTables__ list of tables to be not generated. Can be regexp.
+- __prefix__ prefix to be added to generated classes. For CLASS_PER_TABLE strategy.
+- __suffix__ suffix to be added to generated classes. For CLASS_PER_TABLE strategy.
  
 
 You can customize generation template, by providing __templates__ list:

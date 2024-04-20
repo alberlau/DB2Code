@@ -13,6 +13,8 @@ public class GeneratorTarget {
     private final String baseDir;
     private final String singleResultName;
     private final GeneratorStrategy generatorStrategy;
+    private final String prefix;
+    private final String suffix;
 
     public Path getPath() {
         String pkg = getTargetPackage();

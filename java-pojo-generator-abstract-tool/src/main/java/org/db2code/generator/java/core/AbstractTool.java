@@ -55,7 +55,9 @@ public interface AbstractTool {
                                     getTargetFolder(),
                                     getBaseDir(),
                                     getSingleResultName(),
-                                    getGeneratorStrategy()),
+                                    getGeneratorStrategy(),
+                                    getPrefix(),
+                                    getSuffix()),
                             getExt(),
                             getDateImpl(),
                             getTypeMapFile(),
@@ -146,4 +148,8 @@ public interface AbstractTool {
     String getSingleResultName();
 
     String getTypeMapFile();
+
+    String getPrefix();
+
+    String getSuffix();
 }

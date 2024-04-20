@@ -27,4 +27,6 @@ public class ToolWithSettings implements AbstractTool {
     private GeneratorStrategy generatorStrategy;
     private String singleResultName;
     private String typeMapFile;
+    private String prefix;
+    private String suffix;
 }

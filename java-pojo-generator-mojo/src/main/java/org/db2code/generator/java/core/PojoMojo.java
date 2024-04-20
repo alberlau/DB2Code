@@ -41,6 +41,9 @@ public class PojoMojo extends AbstractMojo implements AbstractTool {
 
     @Parameter private String typeMapFile;
 
+    @Parameter private String prefix;
+    @Parameter private String suffix;
+
     @Override
     public void execute() {
         AbstractTool.super.execute();
@@ -124,5 +127,15 @@ public class PojoMojo extends AbstractMojo implements AbstractTool {
     @Override
     public String getTypeMapFile() {
         return typeMapFile;
+    }
+
+    @Override
+    public String getPrefix() {
+        return prefix;
+    }
+
+    @Override
+    public String getSuffix() {
+        return suffix;
     }
 }
