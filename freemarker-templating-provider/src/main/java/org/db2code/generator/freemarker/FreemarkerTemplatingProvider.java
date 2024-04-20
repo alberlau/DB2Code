@@ -20,15 +20,11 @@ public class FreemarkerTemplatingProvider implements TemplatingProvider {
         // Loading the template
         StringWriter out;
         try {
-            System.out.println("-------------templateLocation: " + templateLocation);
-
             String fullPath =
                     FilenameUtils.getFullPathNoEndSeparator(
                             new File(new URI(templateLocation).getPath()).getAbsolutePath());
-            System.out.println("-------------fullPath: " + fullPath);
             config.setDirectoryForTemplateLoading(new File(fullPath));
             String name = FilenameUtils.getName(templateLocation);
-            System.out.println("-------------name: " + name);
             Template template = config.getTemplate(name);
             // Merging the template with the data model
             out = new StringWriter();
