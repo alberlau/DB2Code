@@ -22,7 +22,16 @@ public class ProcedureAdapter implements ClassAdapter {
 
     @Override
     public String getClassName() {
-        return JavaPropertyConverter.camelCaseFromSnakeCaseInitCap(rawProcedure.getProcedureName());
+        String classname =
+                JavaPropertyConverter.camelCaseFromSnakeCaseInitCap(
+                        rawProcedure.getProcedureName());
+        if (params.getGeneratorTarget().getPrefix() != null) {
+            classname = params.getGeneratorTarget().getPrefix() + classname;
+        }
+        if (params.getGeneratorTarget().getSuffix() != null) {
+            classname = classname + params.getGeneratorTarget().getSuffix();
+        }
+        return classname;
     }
 
     @Override

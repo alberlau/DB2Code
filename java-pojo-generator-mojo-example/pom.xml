@@ -105,6 +105,25 @@
                         </configuration>
                     </execution>
                     <execution>
+                        <id>testPrefixSuffix</id>
+                        <goals>
+                            <goal>generatePojo</goal>
+                        </goals>
+                        <configuration>
+                            <includeGenerationInfo>true</includeGenerationInfo>
+                            <extractionParameters>
+                                <item>
+                                    <importFile>${basedir}/target/classes/TEST_SCHEMA.yml</importFile>
+                                </item>
+                            </extractionParameters>
+                            <baseDir>${project.basedir}</baseDir>
+                            <targetFolder>target/generated-sources</targetFolder>
+                            <targetPackage>from_imported_metadata.testpkg</targetPackage>
+                            <prefix>TestPref</prefix>
+                            <suffix>TestSuff</suffix>
+                        </configuration>
+                    </execution>
+                    <execution>
                         <id>pojoExecution</id>
                         <goals>
                             <goal>generatePojo</goal>

@@ -58,7 +58,9 @@ public class DatabaseAdapter {
                                                 params.getGeneratorTarget().getTargetPackage(),
                                                 params.getDateImpl(),
                                                 params.getTypeMapFile(),
-                                                params.isIncludeGenerationInfo()))
+                                                params.isIncludeGenerationInfo(),
+                                                params.getGeneratorTarget().getPrefix(),
+                                                params.getGeneratorTarget().getSuffix()))
                         .collect(Collectors.toList());
         setIsLast(tableClassList);
         return tableClassList;
