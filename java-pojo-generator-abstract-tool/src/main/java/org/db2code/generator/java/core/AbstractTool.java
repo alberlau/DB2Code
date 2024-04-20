@@ -2,6 +2,7 @@ package org.db2code.generator.java.core;
 
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,7 +37,7 @@ public interface AbstractTool {
                 metadataExtractor = new MetadataExtractor(connectionProvider);
             }
             ClassWriter classWriter = new ClassWriter();
-            Generator generator = new Generator();
+            Generator generator = createGenerator();
             GeneratorExecutor generatorExecutor =
                     new GeneratorExecutor(metadataExtractor, classWriter, generator);
 
@@ -65,6 +66,30 @@ public interface AbstractTool {
         } finally {
             closeConnectionProviderIfNeeded(connectionProvider);
         }
+    }
+
+    private Generator createGenerator() {
+        Object o;
+        try {
+            String templatingProviderClass = getTemplatingProviderClass();
+            if (templatingProviderClass == null) {
+                templatingProviderClass =
+                        "org.db2code.generator.java.pojo.MustacheTemplatingProvider";
+            }
+
+            o = Class.forName(templatingProviderClass).getDeclaredConstructor().newInstance();
+        } catch (InstantiationException
+                | IllegalAccessException
+                | InvocationTargetException
+                | NoSuchMethodException
+                | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        if (!(o instanceof TemplatingProvider)) {
+            throw new RuntimeException(
+                    "Templating provider class should implement TemplatingProvider interface!");
+        }
+        return new Generator((TemplatingProvider) o);
     }
 
     private static void closeConnectionProviderIfNeeded(ConnectionProvider connectionProvider) {
@@ -152,4 +177,6 @@ public interface AbstractTool {
     String getPrefix();
 
     String getSuffix();
+
+    String getTemplatingProviderClass();
 }

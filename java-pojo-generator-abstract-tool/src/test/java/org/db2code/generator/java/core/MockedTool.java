@@ -23,6 +23,7 @@ public class MockedTool implements AbstractTool {
     private String typeMapFile;
     private String prefix;
     private String suffix;
+    private String templatingProviderClass;
 
     @Override
     public List<Item> getExtractionParameters() {
@@ -112,6 +113,11 @@ public class MockedTool implements AbstractTool {
     @Override
     public String getSuffix() {
         return suffix;
+    }
+
+    @Override
+    public String getTemplatingProviderClass() {
+        return templatingProviderClass;
     }
 
     public void setExtractionParameters(List<Item> extractionParameters) {

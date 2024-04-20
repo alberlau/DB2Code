@@ -47,6 +47,7 @@
         <module>java-pojo-generator-mojo</module>
         <module>java-pojo-generator-mojo-example</module>
         <module>java-pojo-generator-cmd</module>
+        <module>freemarker-templating-provider</module>
     </modules>
 
     <dependencyManagement>

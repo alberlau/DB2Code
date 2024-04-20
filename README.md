@@ -116,6 +116,7 @@ Optionally if you need to attach generated code to your source code add this:
 - __doNotGenerateTables__ list of tables to be not generated. Can be regexp.
 - __prefix__ prefix to be added to generated classes. For CLASS_PER_TABLE strategy.
 - __suffix__ suffix to be added to generated classes. For CLASS_PER_TABLE strategy.
+- __templatingProviderClass__ class to be used for templating. Implementation of org.db2code.generator.java.pojo.TemplatingProvider . Default is org.db2code.generator.java.pojo.MustacheTemplatingProvider . org.db2code.generator.freemarker.FreemarkerTemplatingProvider is also available, you'll need to add dependency to it(org.db2code:freemarker-templating-provider).
  
 
 You can customize generation template, by providing __templates__ list:
