@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.apache.commons.collections.CollectionUtils;
 import org.db2code.generator.java.pojo.ExecutorParams;
 import org.db2code.rawmodel.RawDatabaseMetadata;
 import org.db2code.rawmodel.RawTable;
@@ -35,7 +36,15 @@ public class DatabaseAdapter {
                 rawDatabaseMetadata.getProcedures().stream()
                         .map(rawProcedure -> new ProcedureAdapter(rawProcedure, params))
                         .collect(Collectors.toList());
+        setIsLast(procedureClassList);
         return procedureClassList;
+    }
+
+    private static void setIsLast(List<? extends ClassAdapter> classList) {
+        // select last element from classList
+        if (CollectionUtils.isNotEmpty(classList)) {
+            classList.get(classList.size() - 1).setLast(true);
+        }
     }
 
     private List<ClassAdapter> makeTableClassList() {
@@ -51,6 +60,7 @@ public class DatabaseAdapter {
                                                 params.getTypeMapFile(),
                                                 params.isIncludeGenerationInfo()))
                         .collect(Collectors.toList());
+        setIsLast(tableClassList);
         return tableClassList;
     }
 

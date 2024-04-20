@@ -246,6 +246,31 @@
                             </templates>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>constantsExecution</id>
+                        <goals>
+                            <goal>generatePojo</goal>
+                        </goals>
+                        <configuration>
+                            <jdbcUrl>jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;INIT=RUNSCRIPT FROM '${project.basedir}/init.sql'</jdbcUrl>
+                            <jdbcClassName>org.h2.Driver</jdbcClassName>
+                            <extractionParameters>
+                                <item>
+                                    <schemaPattern>TEST_SCHEMA</schemaPattern>
+                                    <catalog>TEST</catalog>
+                                    <tableNamePattern>%</tableNamePattern>
+                                </item>
+                            </extractionParameters>
+                            <baseDir>${project.basedir}</baseDir>
+                            <generatorStrategy>SINGLE_FILE</generatorStrategy>
+                            <targetFolder>target/generated-sources</targetFolder>
+                            <targetPackage>test.constants</targetPackage>
+                            <singleResultName>TestConstants</singleResultName>
+                            <templates>
+                                <template>${project.baseUri}/constants.mustache</template>
+                            </templates>
+                        </configuration>
+                    </execution>
                 </executions>
                 <dependencies>
                     <dependency>

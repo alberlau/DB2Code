@@ -90,4 +90,9 @@ public class DefaultClassAdapter implements ClassAdapter {
             return null;
         }
     }
+
+    @Override
+    public void setLast(boolean last) {
+        this.rawTable.setIsLast(last);
+    }
 }
