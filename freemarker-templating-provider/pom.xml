@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.db2code</groupId>
         <artifactId>DB2Code</artifactId>
-        <version>1.3.7</version>
+        <version>1.3.8</version>
     </parent>
 
     <artifactId>freemarker-templating-provider</artifactId>
@@ -26,7 +26,7 @@
         <dependency>
             <groupId>org.db2code</groupId>
             <artifactId>java-pojo-generator</artifactId>
-            <version>1.3.7</version>
+            <version>1.3.8</version>
         </dependency>
         <!-- Add the FreeMarker templating engine -->
         <dependency>
