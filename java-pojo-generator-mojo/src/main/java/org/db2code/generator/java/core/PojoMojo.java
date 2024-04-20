@@ -43,6 +43,7 @@ public class PojoMojo extends AbstractMojo implements AbstractTool {
 
     @Parameter private String prefix;
     @Parameter private String suffix;
+    @Parameter private String templatingProviderClass;
 
     @Override
     public void execute() {
@@ -137,5 +138,10 @@ public class PojoMojo extends AbstractMojo implements AbstractTool {
     @Override
     public String getSuffix() {
         return suffix;
+    }
+
+    @Override
+    public String getTemplatingProviderClass() {
+        return templatingProviderClass;
     }
 }

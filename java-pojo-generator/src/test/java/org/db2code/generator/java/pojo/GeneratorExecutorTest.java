@@ -49,7 +49,10 @@ class GeneratorExecutorTest {
     public void test() throws IOException {
         MetadataExtractor metadataExtractor = mock(MetadataExtractor.class);
         GeneratorExecutor generatorExecutor =
-                new GeneratorExecutor(metadataExtractor, new ClassWriter(), new Generator());
+                new GeneratorExecutor(
+                        metadataExtractor,
+                        new ClassWriter(),
+                        new Generator(new MustacheTemplatingProvider()));
         byte[] mockMetadataBytes =
                 GeneratorExecutorTest.class
                         .getResourceAsStream("/sample-metadata.json")

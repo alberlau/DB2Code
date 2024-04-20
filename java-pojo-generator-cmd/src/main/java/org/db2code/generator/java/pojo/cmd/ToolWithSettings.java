@@ -29,4 +29,5 @@ public class ToolWithSettings implements AbstractTool {
     private String typeMapFile;
     private String prefix;
     private String suffix;
+    private String templatingProviderClass;
 }

@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.db2code</groupId>
         <artifactId>DB2Code</artifactId>
-        <version>1.3.7</version>
+        <version>1.3.8</version>
     </parent>
 
     <artifactId>java-pojo-generator-mojo-example</artifactId>
@@ -66,7 +66,7 @@
             <plugin>
                 <groupId>org.db2code</groupId>
                 <artifactId>java-pojo-generator-mojo</artifactId>
-                <version>1.3.7</version>
+                <version>1.3.8</version>
                 <executions>
                     <execution>
                         <id>exportMetadata</id>
@@ -290,12 +290,42 @@
                             </templates>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>constantsExecutionFreemarker</id>
+                        <goals>
+                            <goal>generatePojo</goal>
+                        </goals>
+                        <configuration>
+                            <jdbcUrl>jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;INIT=RUNSCRIPT FROM '${project.basedir}/init.sql'</jdbcUrl>
+                            <jdbcClassName>org.h2.Driver</jdbcClassName>
+                            <extractionParameters>
+                                <item>
+                                    <schemaPattern>TEST_SCHEMA</schemaPattern>
+                                    <catalog>TEST</catalog>
+                                    <tableNamePattern>%</tableNamePattern>
+                                </item>
+                            </extractionParameters>
+                            <baseDir>${project.basedir}</baseDir>
+                            <targetFolder>target/generated-sources</targetFolder>
+                            <targetPackage>test.constants</targetPackage>
+                            <suffix>Freemarker</suffix>
+                            <templatingProviderClass>org.db2code.generator.freemarker.FreemarkerTemplatingProvider</templatingProviderClass>
+                            <templates>
+                                <template>${project.baseUri}pojo.ftl</template>
+                            </templates>
+                        </configuration>
+                    </execution>
                 </executions>
                 <dependencies>
                     <dependency>
                         <groupId>com.h2database</groupId>
                         <artifactId>h2</artifactId>
                         <version>${h2.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.db2code</groupId>
+                        <artifactId>freemarker-templating-provider</artifactId>
+                        <version>1.3.8</version>
                     </dependency>
                 </dependencies>
             </plugin>
