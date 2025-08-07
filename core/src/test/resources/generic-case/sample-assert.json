@@ -66,6 +66,20 @@
           "isNullable": "NO"
         },
         {
+          "tableCat": "TEST",
+          "tableSchem": "TEST_SCHEMA",
+          "tableName": "TEST_TABLE_1",
+          "columnName": "SOME_BOOL",
+          "dataType": 16,
+          "typeName": "BOOLEAN",
+          "columnSize": 1,
+          "decimalDigits": 0,
+          "nullable": 1,
+          "charOctetLength": 1,
+          "ordinalPosition": 5,
+          "isNullable": "YES"
+        },
+        {
           "isLast": true,
           "tableCat": "TEST",
           "tableSchem": "TEST_SCHEMA",
@@ -77,7 +91,7 @@
           "decimalDigits": 6,
           "nullable": 0,
           "charOctetLength": 26,
-          "ordinalPosition": 5,
+          "ordinalPosition": 6,
           "isNullable": "NO"
         }
       ],
@@ -101,7 +115,7 @@
           "fktableCat": "TEST",
           "fktableSchem": "TEST_SCHEMA",
           "fktableName": "TEST_TABLE_2",
-          "fkcolumnName": "SIMPLE_ID_2",
+          "fkcolumnName": "SIMPLE_ID_1",
           "keySeq": 1,
           "updateRule": 1,
           "deleteRule": 1,
@@ -121,7 +135,7 @@
           "keySeq": 1,
           "updateRule": 1,
           "deleteRule": 1,
-          "fkName": "CONSTRAINT_DCFE",
+          "fkName": "CONSTRAINT_DCFE4",
           "pkName": "CONSTRAINT_D",
           "deferrability": 7,
           "isLast": true
@@ -154,6 +168,21 @@
           "tableCat": "TEST",
           "tableSchem": "TEST_SCHEMA",
           "tableName": "TEST_TABLE_2",
+          "columnName": "SIMPLE_ID_1",
+          "dataType": 4,
+          "typeName": "INTEGER",
+          "columnSize": 32,
+          "decimalDigits": 0,
+          "numPrecRadix": 2,
+          "nullable": 0,
+          "charOctetLength": 32,
+          "ordinalPosition": 2,
+          "isNullable": "NO"
+        },
+        {
+          "tableCat": "TEST",
+          "tableSchem": "TEST_SCHEMA",
+          "tableName": "TEST_TABLE_2",
           "columnName": "TEST_VARCHAR",
           "dataType": 12,
           "typeName": "CHARACTER VARYING",
@@ -161,7 +190,7 @@
           "decimalDigits": 0,
           "nullable": 1,
           "charOctetLength": 50,
-          "ordinalPosition": 2,
+          "ordinalPosition": 3,
           "isNullable": "YES"
         },
         {
@@ -176,7 +205,7 @@
           "numPrecRadix": 10,
           "nullable": 1,
           "charOctetLength": 10,
-          "ordinalPosition": 3,
+          "ordinalPosition": 4,
           "isNullable": "YES"
         },
         {
@@ -190,7 +219,7 @@
           "decimalDigits": 0,
           "nullable": 1,
           "charOctetLength": 10,
-          "ordinalPosition": 4,
+          "ordinalPosition": 5,
           "isNullable": "YES"
         },
         {
@@ -205,7 +234,7 @@
           "decimalDigits": 6,
           "nullable": 1,
           "charOctetLength": 26,
-          "ordinalPosition": 5,
+          "ordinalPosition": 6,
           "isNullable": "YES"
         }
       ],
@@ -233,7 +262,7 @@
           "keySeq": 1,
           "updateRule": 1,
           "deleteRule": 1,
-          "fkName": "CONSTRAINT_DCFE4",
+          "fkName": "CONSTRAINT_DCFE4D",
           "pkName": "CONSTRAINT_DC",
           "deferrability": 7,
           "isLast": true
@@ -250,7 +279,7 @@
           "tableCat": "TEST",
           "tableSchem": "TEST_SCHEMA",
           "tableName": "TEST_TABLE_3",
-          "columnName": "SIMPLE_ID_1",
+          "columnName": "SIMPLE_ID_3",
           "dataType": 4,
           "typeName": "INTEGER",
           "columnSize": 32,
@@ -259,6 +288,21 @@
           "nullable": 0,
           "charOctetLength": 32,
           "ordinalPosition": 1,
+          "isNullable": "NO"
+        },
+        {
+          "tableCat": "TEST",
+          "tableSchem": "TEST_SCHEMA",
+          "tableName": "TEST_TABLE_3",
+          "columnName": "SIMPLE_ID_1",
+          "dataType": 4,
+          "typeName": "INTEGER",
+          "columnSize": 32,
+          "decimalDigits": 0,
+          "numPrecRadix": 2,
+          "nullable": 0,
+          "charOctetLength": 32,
+          "ordinalPosition": 2,
           "isNullable": "NO"
         },
         {
@@ -274,11 +318,21 @@
           "numPrecRadix": 2,
           "nullable": 0,
           "charOctetLength": 32,
-          "ordinalPosition": 2,
+          "ordinalPosition": 3,
           "isNullable": "NO"
         }
       ],
-      "primaryKey": [],
+      "primaryKey": [
+        {
+          "isLast": true,
+          "tableCat": "TEST",
+          "tableSchem": "TEST_SCHEMA",
+          "tableName": "TEST_TABLE_3",
+          "columnName": "SIMPLE_ID_3",
+          "keySeq": "1",
+          "pkName": "CONSTRAINT_DCFE"
+        }
+      ],
       "foreignKeys": []
     }
   ],

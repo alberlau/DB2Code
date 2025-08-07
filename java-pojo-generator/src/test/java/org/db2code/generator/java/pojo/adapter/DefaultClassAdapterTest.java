@@ -19,7 +19,8 @@ class DefaultClassAdapterTest {
         col2.setColumnName("test_col_");
         rawTable.setColumns(asList(col1, col2));
         DefaultClassAdapter classAdapter =
-                new DefaultClassAdapter(rawTable, null, null, null, false, null, null);
+                new DefaultClassAdapter(
+                        rawTable, null, null, null, false, null, null, java.util.List.of(rawTable));
         Collection<PropertyAdapter> properties = classAdapter.getProperties();
         Assertions.assertTrue(properties.size() == 2);
         Iterator<PropertyAdapter> iterator = properties.iterator();
