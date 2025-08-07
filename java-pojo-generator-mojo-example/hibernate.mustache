@@ -1,0 +1,50 @@
+package {{package}};
+
+import jakarta.persistence.*;
+import java.util.List;
+
+/** {{rawTable.remarks}}
+{{rawTable.tableCat}}.{{rawTable.tableSchem}}.{{rawTable.tableName}}{{#generationInfo}}
+
+    {{generationInfo}}{{/generationInfo}}
+*/
+@Entity
+@Table(schema = "{{rawTable.tableSchem}}", name = "{{rawTable.tableName}}")
+public class {{className}} {
+{{#properties}}
+
+    {{#isRelational}}
+        {{#isManyToOne}}
+            @ManyToOne
+            @JoinColumn(name = "{{rawColumn.columnName}}") {{^isNullable}}@jakarta.validation.constraints.NotNull{{/isNullable}}
+            private {{propertyType}} {{propertyName}};
+        {{/isManyToOne}}
+        {{#isOneToMany}}
+            @OneToMany(mappedBy = "{{mappedBy}}", cascade = CascadeType.ALL, orphanRemoval = true)
+            private List<{{propertyType}}> {{propertyName}};
+        {{/isOneToMany}}
+    {{/isRelational}}
+    {{^isRelational}}
+    /** {{rawColumn.remarks}}
+    {{rawColumn.columnName}} {{rawColumn.typeName}}({{rawColumn.columnSize}}) Nullable={{rawColumn.isNullable}}
+    */
+    @Column("{{rawColumn.columnName}}") {{#isId}}@Id @GeneratedValue(strategy = GenerationType.IDENTITY){{/isId}}{{^isNullable}}
+
+        @jakarta.validation.constraints.NotNull{{/isNullable}}{{#size}}
+
+        @jakarta.validation.constraints.Size(max = {{size}}){{/size}}
+    private {{propertyType}} {{propertyName}};
+    {{/isRelational}}
+{{/properties}}
+{{#properties}}
+
+    public {{propertyType}} get{{methodName}}() {
+    return {{propertyName}};
+    }
+
+    public void set{{methodName}}({{propertyType}} {{propertyName}}) {
+    this.{{propertyName}} = {{propertyName}};
+    }
+
+{{/properties}}
+}
