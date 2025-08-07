@@ -21,6 +21,10 @@ public class PropertyAdapter {
     private final Set<String> primaryKeyColumns;
     private String propertyName;
     private String methodName;
+    private boolean isRelational;
+    private Boolean isManyToOne;
+    private Boolean isOneToMany;
+    private String mappedBy;
 
     public PropertyAdapter(
             RawTable rawTable,
@@ -105,5 +109,37 @@ public class PropertyAdapter {
         } else {
             return null;
         }
+    }
+
+    public boolean isRelational() {
+        return isRelational;
+    }
+
+    public void setRelational(boolean relational) {
+        isRelational = relational;
+    }
+
+    public Boolean getManyToOne() {
+        return isManyToOne;
+    }
+
+    public void setManyToOne(Boolean manyToOne) {
+        isManyToOne = manyToOne;
+    }
+
+    public Boolean getOneToMany() {
+        return isOneToMany;
+    }
+
+    public void setOneToMany(Boolean oneToMany) {
+        isOneToMany = oneToMany;
+    }
+
+    public String getMappedBy() {
+        return mappedBy;
+    }
+
+    public void setMappedBy(String mappedBy) {
+        this.mappedBy = mappedBy;
     }
 }
