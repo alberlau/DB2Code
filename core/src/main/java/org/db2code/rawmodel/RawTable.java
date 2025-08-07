@@ -18,7 +18,8 @@ public class RawTable extends AbstractRawTableItem {
     private Collection<RawColumn> columns = new ArrayList<>();
 
     private Collection<RawPrimaryKey> primaryKey = new ArrayList<>();
-    private Collection<RawForeignKey> foreignKeys;
+    private Collection<RawForeignKey> foreignKeys = new ArrayList<>();
+    private Collection<RawForeignKey> importedKeys = new ArrayList<>();
 
     @Data
     @ToString(callSuper = true)

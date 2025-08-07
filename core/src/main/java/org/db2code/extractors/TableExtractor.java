@@ -49,6 +49,7 @@ public class TableExtractor extends AbstractExtractor<DatabaseExtractionParamete
 
                 rawTable.setPrimaryKey(extractPrimaryKeys(databaseMetaData, rawTable));
                 rawTable.setForeignKeys(extractForeignKeys(databaseMetaData, rawTable));
+                rawTable.setImportedKeys(extractImportedKeys(databaseMetaData, rawTable));
                 setColumns(databaseMetaData, params, rawTable);
                 results.add(rawTable);
             }
@@ -90,6 +91,33 @@ public class TableExtractor extends AbstractExtractor<DatabaseExtractionParamete
                 rawForeignKey = new RawForeignKey();
                 for (ExportedKeyMetadata mdItem : ExportedKeyMetadata.values()) {
                     Object mdValue = exportedKeys.getObject(mdItem.name());
+                    String propName =
+                            JavaPropertyConverter.camelCaseFromSnakeCaseInitLow(mdItem.name());
+                    setProperty(rawForeignKey, mdValue, propName);
+                }
+                fkResults.add(rawForeignKey);
+            }
+
+            if (rawForeignKey != null) {
+                rawForeignKey.setIsLast(true);
+            }
+            return fkResults;
+        }
+    }
+
+    private List<RawForeignKey> extractImportedKeys(
+            DatabaseMetaData databaseMetaData, RawTable rawTable) throws SQLException {
+        List<RawForeignKey> fkResults = new ArrayList<>();
+        try (ResultSet importedKeys =
+                databaseMetaData.getImportedKeys(
+                        rawTable.getTableCat(),
+                        rawTable.getTableSchem(),
+                        rawTable.getTableName())) {
+            RawForeignKey rawForeignKey = null;
+            while (importedKeys.next()) {
+                rawForeignKey = new RawForeignKey();
+                for (ExportedKeyMetadata mdItem : ExportedKeyMetadata.values()) {
+                    Object mdValue = importedKeys.getObject(mdItem.name());
                     String propName =
                             JavaPropertyConverter.camelCaseFromSnakeCaseInitLow(mdItem.name());
                     setProperty(rawForeignKey, mdValue, propName);

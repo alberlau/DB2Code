@@ -3,6 +3,12 @@ package {{package}};
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import java.util.List;
 
 /** {{rawTable.remarks}}
     {{rawTable.tableCat}}.{{rawTable.tableSchem}}.{{rawTable.tableName}}{{#generationInfo}}
@@ -23,6 +29,29 @@ public class {{className}} {
     @jakarta.validation.constraints.Size(max = {{size}}){{/size}}
     private {{propertyType}} {{propertyName}};
     {{/properties}}
+    {{#oneToManyRelations}}
+
+    @OneToMany
+    @JoinColumn(name = "{{joinColumn}}")
+    private List<{{targetClassName}}> {{fieldName}};
+    {{/oneToManyRelations}}
+
+    {{#manyToOneRelations}}
+
+    @ManyToOne
+    @JoinColumn(name = "{{joinColumn}}")
+    private {{targetClassName}} {{fieldName}};
+    {{/manyToOneRelations}}
+
+    {{#manyToManyRelations}}
+
+    @ManyToMany
+    @JoinTable(name = "{{joinTable}}",
+        joinColumns = @JoinColumn(name = "{{joinColumn}}"),
+        inverseJoinColumns = @JoinColumn(name = "{{inverseJoinColumn}}"))
+    private List<{{targetClassName}}> {{fieldName}};
+    {{/manyToManyRelations}}
+
     {{#properties}}
 
     public {{propertyType}} get{{methodName}}() {
@@ -34,4 +63,40 @@ public class {{className}} {
     }
 
     {{/properties}}
+
+    {{#oneToManyRelations}}
+
+    public List<{{targetClassName}}> get{{methodName}}() {
+        return {{fieldName}};
+    }
+
+    public void set{{methodName}}(List<{{targetClassName}}> {{fieldName}}) {
+        this.{{fieldName}} = {{fieldName}};
+    }
+
+    {{/oneToManyRelations}}
+
+    {{#manyToOneRelations}}
+
+    public {{targetClassName}} get{{methodName}}() {
+        return {{fieldName}};
+    }
+
+    public void set{{methodName}}({{targetClassName}} {{fieldName}}) {
+        this.{{fieldName}} = {{fieldName}};
+    }
+
+    {{/manyToOneRelations}}
+
+    {{#manyToManyRelations}}
+
+    public List<{{targetClassName}}> get{{methodName}}() {
+        return {{fieldName}};
+    }
+
+    public void set{{methodName}}(List<{{targetClassName}}> {{fieldName}}) {
+        this.{{fieldName}} = {{fieldName}};
+    }
+
+    {{/manyToManyRelations}}
 }

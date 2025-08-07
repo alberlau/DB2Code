@@ -60,7 +60,8 @@ public class DatabaseAdapter {
                                                 params.getTypeMapFile(),
                                                 params.isIncludeGenerationInfo(),
                                                 params.getGeneratorTarget().getPrefix(),
-                                                params.getGeneratorTarget().getSuffix()))
+                                                params.getGeneratorTarget().getSuffix(),
+                                                rawDatabaseMetadata.getTables()))
                         .collect(Collectors.toList());
         setIsLast(tableClassList);
         return tableClassList;
