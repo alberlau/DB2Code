@@ -6,7 +6,8 @@ public class RelationAdapter {
     private final String methodName;
     private final String joinColumn;
 
-    public RelationAdapter(String targetClassName, String fieldName, String methodName, String joinColumn) {
+    public RelationAdapter(
+            String targetClassName, String fieldName, String methodName, String joinColumn) {
         this.targetClassName = targetClassName;
         this.fieldName = fieldName;
         this.methodName = methodName;

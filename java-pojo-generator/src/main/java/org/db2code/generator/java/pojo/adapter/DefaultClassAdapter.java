@@ -9,8 +9,8 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.db2code.convert.JavaPropertyConverter;
-import org.db2code.rawmodel.RawTable;
 import org.db2code.rawmodel.RawForeignKey;
+import org.db2code.rawmodel.RawTable;
 
 public class DefaultClassAdapter implements ClassAdapter {
     private final RawTable rawTable;
@@ -134,31 +134,51 @@ public class DefaultClassAdapter implements ClassAdapter {
 
     private Collection<RelationAdapter> initOneToManyRelations() {
         List<RelationAdapter> results = new ArrayList<>();
-        rawTable.getForeignKeys().forEach(fk -> {
-            String className =
-                    JavaPropertyConverter.camelCaseFromSnakeCaseInitCap(fk.getFktableName());
-            String fieldName =
-                    JavaPropertyConverter.camelCaseFromSnakeCaseInitLow(fk.getFktableName())
-                            + "List";
-            String methodName =
-                    JavaPropertyConverter.camelCaseFromSnakeCaseInitCap(fk.getFktableName())
-                            + "List";
-            results.add(new RelationAdapter(className, fieldName, methodName, fk.getFkcolumnName()));
-        });
+        rawTable.getForeignKeys()
+                .forEach(
+                        fk -> {
+                            String className =
+                                    JavaPropertyConverter.camelCaseFromSnakeCaseInitCap(
+                                            fk.getFktableName());
+                            String fieldName =
+                                    JavaPropertyConverter.camelCaseFromSnakeCaseInitLow(
+                                                    fk.getFktableName())
+                                            + "List";
+                            String methodName =
+                                    JavaPropertyConverter.camelCaseFromSnakeCaseInitCap(
+                                                    fk.getFktableName())
+                                            + "List";
+                            results.add(
+                                    new RelationAdapter(
+                                            className,
+                                            fieldName,
+                                            methodName,
+                                            fk.getFkcolumnName()));
+                        });
         return results;
     }
 
     private Collection<RelationAdapter> initManyToOneRelations() {
         List<RelationAdapter> results = new ArrayList<>();
-        rawTable.getImportedKeys().forEach(fk -> {
-            String className =
-                    JavaPropertyConverter.camelCaseFromSnakeCaseInitCap(fk.getPktableName());
-            String fieldName =
-                    JavaPropertyConverter.camelCaseFromSnakeCaseInitLow(fk.getPktableName());
-            String methodName =
-                    JavaPropertyConverter.camelCaseFromSnakeCaseInitCap(fk.getPktableName());
-            results.add(new RelationAdapter(className, fieldName, methodName, fk.getFkcolumnName()));
-        });
+        rawTable.getImportedKeys()
+                .forEach(
+                        fk -> {
+                            String className =
+                                    JavaPropertyConverter.camelCaseFromSnakeCaseInitCap(
+                                            fk.getPktableName());
+                            String fieldName =
+                                    JavaPropertyConverter.camelCaseFromSnakeCaseInitLow(
+                                            fk.getPktableName());
+                            String methodName =
+                                    JavaPropertyConverter.camelCaseFromSnakeCaseInitCap(
+                                            fk.getPktableName());
+                            results.add(
+                                    new RelationAdapter(
+                                            className,
+                                            fieldName,
+                                            methodName,
+                                            fk.getFkcolumnName()));
+                        });
         return results;
     }
 
@@ -173,13 +193,9 @@ public class DefaultClassAdapter implements ClassAdapter {
                 RawForeignKey fk2 = importedList.get(1);
                 if (!fk1.getPktableName().equalsIgnoreCase(fk2.getPktableName())) {
                     if (fk1.getPktableName().equalsIgnoreCase(rawTable.getTableName())) {
-                        results.add(
-                                createManyToManyRelation(
-                                        fk1, fk2, table.getTableName()));
+                        results.add(createManyToManyRelation(fk1, fk2, table.getTableName()));
                     } else if (fk2.getPktableName().equalsIgnoreCase(rawTable.getTableName())) {
-                        results.add(
-                                createManyToManyRelation(
-                                        fk2, fk1, table.getTableName()));
+                        results.add(createManyToManyRelation(fk2, fk1, table.getTableName()));
                     }
                 }
             }

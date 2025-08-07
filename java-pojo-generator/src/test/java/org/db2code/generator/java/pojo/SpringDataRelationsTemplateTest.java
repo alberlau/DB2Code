@@ -12,10 +12,6 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.db2code.MetadataExtractor;
 import org.db2code.extractors.DatabaseExtractionParameters;
-import org.db2code.generator.java.pojo.ClassWriter;
-import org.db2code.generator.java.pojo.Generator;
-import org.db2code.generator.java.pojo.GeneratorTarget;
-import org.db2code.generator.java.pojo.MustacheTemplatingProvider;
 import org.db2code.generator.java.pojo.adapter.DateImpl;
 import org.db2code.rawmodel.RawColumn;
 import org.db2code.rawmodel.RawDatabaseMetadata;
@@ -49,7 +45,13 @@ class SpringDataRelationsTemplateTest {
                     new ExecutorParams(
                             List.of(
                                     new DatabaseExtractionParameters(
-                                            "cat", "schem", "%", new String[] {}, null, null, false)),
+                                            "cat",
+                                            "schem",
+                                            "%",
+                                            new String[] {},
+                                            null,
+                                            null,
+                                            false)),
                             Arrays.asList("spring-data.mustache"),
                             null,
                             new GeneratorTarget("testpkg", "src", dir, null, null, null, null),
@@ -85,15 +87,11 @@ class SpringDataRelationsTemplateTest {
         RawTable join = createJoinTable("TABLE_A_C", "A_ID", tableA, "C_ID", tableC);
 
         tableA.setForeignKeys(
-                List.of(
-                        fk(tableA, "A_ID", tableB, "A_ID"),
-                        fk(tableA, "A_ID", join, "A_ID")));
+                List.of(fk(tableA, "A_ID", tableB, "A_ID"), fk(tableA, "A_ID", join, "A_ID")));
         tableB.setImportedKeys(List.of(fk(tableA, "A_ID", tableB, "A_ID")));
         tableC.setForeignKeys(List.of(fk(tableC, "C_ID", join, "C_ID")));
         join.setImportedKeys(
-                List.of(
-                        fk(tableA, "A_ID", join, "A_ID"),
-                        fk(tableC, "C_ID", join, "C_ID")));
+                List.of(fk(tableA, "A_ID", join, "A_ID"), fk(tableC, "C_ID", join, "C_ID")));
 
         RawDatabaseMetadata metadata = new RawDatabaseMetadata();
         metadata.setTables(Arrays.asList(tableA, tableB, tableC, join));
@@ -140,8 +138,7 @@ class SpringDataRelationsTemplateTest {
         return col;
     }
 
-    private RawForeignKey fk(
-            RawTable pkTable, String pkCol, RawTable fkTable, String fkCol) {
+    private RawForeignKey fk(RawTable pkTable, String pkCol, RawTable fkTable, String fkCol) {
         RawForeignKey fk = new RawForeignKey();
         fk.setPktableName(pkTable.getTableName());
         fk.setPkcolumnName(pkCol);

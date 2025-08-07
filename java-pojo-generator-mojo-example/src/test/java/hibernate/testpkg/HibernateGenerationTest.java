@@ -1,11 +1,11 @@
 package hibernate.testpkg;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(classes = {App.class})
 @Transactional
@@ -15,7 +15,10 @@ public class HibernateGenerationTest {
     private final TestTable2Repository testTable2Repository;
     private final TestTable3Repository testTable3Repository;
 
-    public HibernateGenerationTest(@Autowired TestTable1Repository testTable1Repository, @Autowired TestTable2Repository testTable2Repository, @Autowired TestTable3Repository testTable3Repository) {
+    public HibernateGenerationTest(
+            @Autowired TestTable1Repository testTable1Repository,
+            @Autowired TestTable2Repository testTable2Repository,
+            @Autowired TestTable3Repository testTable3Repository) {
         this.testTable1Repository = testTable1Repository;
         this.testTable2Repository = testTable2Repository;
         this.testTable3Repository = testTable3Repository;
